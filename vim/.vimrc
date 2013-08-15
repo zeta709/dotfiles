@@ -1,0 +1,120 @@
+set number " nu
+set display+=lastline " dy
+set display+=uhex " dy
+set incsearch " is
+set visualbell " vb
+
+set textwidth=79
+set colorcolumn=80
+
+set backspace=indent,eol,start
+
+set cm=blowfish
+
+"" statusline
+set laststatus=2 " ls
+"" http://www.vim.org/tips/tip.php?tip_id=735
+if has("statusline")
+set statusline=
+set statusline+=%n:\         " buffer number and colon
+set statusline+=%<%f\        " filename
+set statusline+=[%M%R%H%W]   " flags: modified, readonly, help buffer, preview
+set statusline+=[%{&fenc}    " file encoding
+set statusline+=%{(exists(\"+bomb\")&&(&bomb))?\"\bomb\":\"\"} " bomb
+set statusline+=,%{&ff}]     " file format
+set statusline+=%y           " file type
+set statusline+=[%3b,0x%02B] " character under cursor
+set statusline+=%=%l,%c%V/%L " current line, column and total line
+set statusline+=\ %p%%       " postion(%)
+endif
+
+"" temp directory setting for windows
+"set directory=.,$TEMP
+
+
+""""""""""""""""""""""""""""""""""""""""
+"" encoding
+""""""""""""""""""""""""""""""""""""""""
+
+set enc=utf-8
+set fenc=utf-8
+set fencs=ucs-bom,utf-8,cp949,latin1
+set nobomb
+
+"" vim 7.2, windows
+"lang en
+"source $VIMRUNTIME/delmenu.vim
+"set langmenu=ko.UTF-8
+"source $VIMRUNTIME/menu.vim
+
+"" vim 7.3, windows
+"set langmenu=en_US.UTF-8
+"let $LANG = 'en_US.UTF-8'
+"set langmenu=ko_KR.UTF-8
+"let $LANG = 'ko_KR.UTF-8'
+"source $VIMRUNTIME/delmenu.vim
+"source $VIMRUNTIME/menu.vim
+
+
+""""""""""""""""""""""""""""""""""""""""
+"" syntax, indent
+""""""""""""""""""""""""""""""""""""""""
+
+"" default indent
+set autoindent
+
+set modeline
+syntax on
+filetype plugin indent on
+
+"set formatoptions+=ro
+
+"" for c,cpp
+nmap <C-J> vip=
+map <F5> gg=G``
+au filetype c,cpp setlocal cindent
+au filetype c,cpp setlocal noexpandtab
+au filetype c,cpp setlocal tabstop=8
+au filetype c,cpp setlocal shiftwidth=8
+"au filetype c,cpp setlocal cinoptions=>2s,:0,=2s,l1,g0,h2s,p2s,t0,+s,(0,u0,w1
+au filetype c,cpp setlocal cinoptions=:0,l1,g0,t0,(0,u0,w1
+let c_space_errors=1
+
+"" for tex
+au FileType tex setlocal spell spelllang=en_us
+au FileType tex map <F7> <ESC>:setlocal spell spelllang=en_us<CR>
+au FileType tex map <F8> <ESC>:!pdflatex %<CR>
+au FileType tex map <F9> <ESC>:!xelatex %<CR>
+
+"" for python
+au filetype python setlocal autoindent
+au filetype python setlocal smarttab
+au filetype python setlocal expandtab
+au filetype python setlocal tabstop=8
+au filetype python setlocal shiftwidth=4
+au filetype python setlocal softtabstop=4
+"" Install follwining vimrc
+"" https://github.com/hynek/vim-python-pep8-indent
+
+"" for java
+"let java_space_errors=1
+
+"" pathogen
+execute pathogen#infect()
+
+"" space errors
+"" space before tab
+"syntax match mySpaceError " \+\t"me=e-1
+"" trail white space
+"syntax match mySpaceError excludenl "\s\+$"
+"syntax match myLongLine /\%>80v.\+/
+"hi def link mySpaceError Error
+"hi def link myLongLine Error
+
+"" font
+set guifont=Dejavu\ Sans\ Mono:h10:cDEFAULT
+
+"" colorscheme
+"hi ColorColumn ctermbg=lightgrey guibg=lightgrey
+"color desert
+source ~/.vim-colors.vimrc
