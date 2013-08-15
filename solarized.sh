@@ -82,6 +82,26 @@ tmux() {
 	touch "$TMUXCONF"
 	if [ -d "$TMUX_SOLARIZED_DIR" ] && [ -f "$TMUXCONF" ]; then
 		case "$SCHEME" in
+			dark-16 | light-16)
+				grep -Eq "source\s+~/\.tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
+				if [ "$?" -eq "0" ]; then
+					sed -ri '/source\s+~\/\.tmux-256\.conf(\s*#.*|\s*)$/d' "$TMUXCONF"
+				fi
+				;;
+			dark-256 | light-256)
+				SRC="$SELF_DIR/tmux/256.conf"
+				DEST="$HOME/.tmux-256.conf"
+				myln "$SRC" "$DEST"
+				grep -Eq "source\s+~/\.tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
+				if [ "$?" -ne "0" ]; then
+					echo "source ~/.tmux-256.conf" >> "$TMUXCONF"
+				fi
+				;;
+			*)
+				echo "Error"
+				;;
+		esac
+		case "$SCHEME" in
 			dark-16)
 				SRC="$TMUX_SOLARIZED_DIR/tmuxcolors-dark.conf"
 				;;
