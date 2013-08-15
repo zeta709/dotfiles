@@ -1,0 +1,29 @@
+# Mutt & Maildir Mini-HOWTO
+# http://www.elho.net/mutt/maildir/
+set mbox_type=Maildir
+set folder="~/Maildir/"
+set mask="!^\\.[^.]"
+set record=".Sent"
+set postponed=".Drafts"
+set spoolfile="~/Maildir/"
+mailboxes `echo -n "+ "; find ~/Maildir -maxdepth 1 -type d -name ".*" -printf "+'%f' "`
+macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro compose A "<attach-message>?<toggle-mailboxes>" "attach message(s) to this message"
+
+# encodig
+set charset="UTF-8"
+set locale="ko_KR.UTF-8"
+
+# euc-kr encoding
+# http://kldp.org/node/128582#comment-575102
+set assumed_charset="EUC-KR:UTF-8"
+set send_charset="UTF-8"
+charset-hook ks_c_5601-1987 X-Windows-949
+iconv-hook X-Windows-949 MSCP949
+
+#set allow_8bit
+#set use_8bitmime
+source ~/.mutt-colors.muttrc
