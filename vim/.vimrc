@@ -96,6 +96,11 @@ au filetype python setlocal softtabstop=4
 "" Install follwining vimrc
 "" https://github.com/hynek/vim-python-pep8-indent
 
+"" for Markdown
+au BufRead,BufNewFile *.md setlocal filetype=markdown
+au filetype markdown setlocal textwidth=120
+au filetype markdown setlocal colorcolumn=120
+
 "" for java
 "let java_space_errors=1
 
