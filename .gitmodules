@@ -1,0 +1,12 @@
+[submodule "mutt-colors-solarized"]
+	path = mutt-colors-solarized
+	url = https://github.com/altercation/mutt-colors-solarized.git
+[submodule "vim-colors-solarized"]
+	path = vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule "tmux-colors-solarized"]
+	path = tmux-colors-solarized
+	url = https://github.com/seebi/tmux-colors-solarized
+[submodule "dircolors-solarized"]
+	path = dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized
