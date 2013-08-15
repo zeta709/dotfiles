@@ -6,10 +6,10 @@
 # https://gist.github.com/zeta709/6232968#file-readme-md
 
 # myln() usage
-# myln "$SRC" "$DEST"
+# myln "$TARGET" "$LINKNAME"
 # NOTE: use double quotation mark
 myln() {
-	echo "Info: trying to make link $1 to $2"
+	echo "Info: trying to make link $2 to $1"
 	ln -vis $1 $2
 }
 
