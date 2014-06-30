@@ -23,8 +23,7 @@ $ ./solarized.sh
 $ source ~/.bashrc
 ```
 
-Note for terminal users
------------------------
+### Note for terminal users
 
 Read the following document.
 [https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users]
