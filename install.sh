@@ -11,6 +11,7 @@ myln() {
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 myln "$SELF_DIR/vim/.vimrc" "$HOME/.vimrc"
+myln "$SELF_DIR/vim-pathogen/autoload/pathogen.vim" "$HOME/.vim/autoload/pathogen.vim"
 myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 
