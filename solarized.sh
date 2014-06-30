@@ -61,7 +61,7 @@ mydircolors() {
 				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.ansi-light"
 				;;
 			dark-256)
-				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.256-dark"
+				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.256dark"
 				;;
 			light-256 | *)
 				SRC=""
