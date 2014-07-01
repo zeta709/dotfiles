@@ -15,6 +15,12 @@ $ ./install.sh
 $ echo 'eval `dircolors ~/.dir_colors`' >> ~/.bashrc
 ```
 
+### Get the latest submodules
+
+```
+$ git submodule foreach git pull origin master
+```
+
 Applying solarized theme
 ------------------------
 
