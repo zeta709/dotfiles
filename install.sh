@@ -17,17 +17,26 @@ myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 
 # .gitconfig
-read -p "Overwrite '$HOME/.gitconfig'? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	ln "$SELF_DIR/git/.gitconfig" "$HOME/.gitconfig"
-	read -p "Enter name for $HOME/.gitconfig: " git_user_name
-	git config --global user.name $git_user_name
-	read -p "Enter email for $HOME/.gitconfig: " git_user_email
-	git config --global user.email $git_user_email
-	echo
-fi
+while true; do # yes/no function: http://stackoverflow.com/questions/226703
+        read -p "Overwrite '$HOME/.gitconfig'? "
+        case $REPLY in
+                [Yy] | [Yy][Ee][Ss])
+                        ln "$SELF_DIR/git/.gitconfig" "$HOME/.gitconfig"
+                        read -p "Enter name for $HOME/.gitconfig: " git_user_name
+                        git config --global user.name $git_user_name
+                        read -p "Enter email for $HOME/.gitconfig: " git_user_email
+                        git config --global user.email $git_user_email
+                        echo
+                        break
+                        ;;
+                [Nn] | [Nn][Oo])
+                        break
+                        ;;
+                *)
+			echo "Answer yes or no."
+                        ;;
+        esac
+done
 
 
 #for src in `find $SELF_DIR -name \*.symlink`; do
