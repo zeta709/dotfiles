@@ -125,7 +125,8 @@ execute pathogen#infect()
 "hi def link myLongLine Error
 
 "" font
-set guifont=Dejavu\ Sans\ Mono:h10:cDEFAULT
+"set guifont=Dejavu\ Sans\ Mono:h10:cDEFAULT
+set guifont=Source\ Code\ Pro\ Semi-Bold\ 11
 
 "" colorscheme
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
