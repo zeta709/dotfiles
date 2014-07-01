@@ -1,10 +1,19 @@
+"" documentation: <ESC>:help options
+
 set number " nu
 set display+=lastline " dy
 set display+=uhex " dy
 set incsearch " is
 set visualbell " vb
+set hlsearch " hls
 
-set textwidth=79
+if &history < 500
+	set history=500
+endif
+set complete-=i " do not scan included files for autocomplete
+
+set wildmenu " command-line completion
+
 set colorcolumn=80
 
 set backspace=indent,eol,start
@@ -98,8 +107,7 @@ au filetype python setlocal softtabstop=4
 
 "" for Markdown
 au BufRead,BufNewFile *.md setlocal filetype=markdown
-au filetype markdown setlocal textwidth=120
-au filetype markdown setlocal colorcolumn=120
+"au filetype markdown setlocal colorcolumn=120
 
 "" for java
 "let java_space_errors=1
