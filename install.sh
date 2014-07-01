@@ -21,7 +21,7 @@ while true; do # yes/no function: http://stackoverflow.com/questions/226703
         read -p "Overwrite '$HOME/.gitconfig'? "
         case $REPLY in
                 [Yy] | [Yy][Ee][Ss])
-                        ln "$SELF_DIR/git/.gitconfig" "$HOME/.gitconfig"
+                        cp -i "$SELF_DIR/git/.gitconfig" "$HOME/.gitconfig"
                         read -p "Enter name for $HOME/.gitconfig: " git_user_name
                         git config --global user.name $git_user_name
                         read -p "Enter email for $HOME/.gitconfig: " git_user_email
