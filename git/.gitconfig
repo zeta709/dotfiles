@@ -1,0 +1,16 @@
+[core]
+	editor = vi
+[user]
+        name =
+        email =
+[diff]
+        tool = vimdiff
+[difftool]
+        tool = vimdiff
+        prompt = false
+[alias]
+        ci = commit
+[merge]
+	tool = kdiff3
+[color]
+	ui = auto
