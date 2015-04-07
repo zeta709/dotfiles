@@ -132,8 +132,8 @@ tmux() {
 }
 
 vim() {
+	echo "Info: begin set up for vim"
 	VIMRC="$HOME/.vimrc"
-	VIM_DIR="$SELF_DIR/vim"
 	VIM_SOLARIZED_DIR="$SELF_DIR/vim-colors-solarized"
 	touch "$VIMRC"
 	if [ -d "$VIM_SOLARIZED_DIR" ] && [ -f "$VIMRC" ]; then
@@ -141,6 +141,7 @@ vim() {
 		if [ "$?" -ne "0" ]; then
 			echo "Warn: pathogen is not installed."
 		else
+			# install solarized color scheme
 			SRC="$VIM_SOLARIZED_DIR"
 			LINK_NAME="$HOME/.vim/bundle/vim-colors-solarized"
 			if [ -d "$LINK_NAME" ]; then
@@ -149,20 +150,17 @@ vim() {
 				mkdir -pv "$HOME/.vim/bundle"
 				myln "$SRC" "$LINK_NAME"
 			fi
-			SRC="$VIM_DIR/vim-colors-solarized-${SCHEME}.vimrc"
-			LINK_NAME="$HOME/.vim-colors.vimrc"
-			if [ -f "$SRC" ]; then
-				myln "$SRC" "$LINK_NAME"
-				grep -Eq "source\s+~/\.vim-colors\.vimrc(\s*\".*|\s*)$" "$VIMRC"
-				if [ "$?" -ne "0" ]; then
-					echo "source ~/.vim-colors.vimrc" >> "$VIMRC"
-				fi
-				echo "Info: done for vim."
+			# update symbolic link
+			SRC="vim-colors-solarized-${SCHEME}.vimrc"
+			LINK_NAME="vim-colors.vimrc"
+			if [ -f "$SELF_DIR/vim/$SRC" ]; then
+				(cd "$SELF_DIR/vim" && myln "$SRC" "$LINK_NAME")
 			fi
 		fi
 	else
 		echo "Warn: vim-colors-solarized or ~/.vimrc not exists."
 	fi
+	echo "Info: done for vim"
 }
 
 mutt() {
