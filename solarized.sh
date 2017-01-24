@@ -9,6 +9,7 @@
 # myln "$TARGET" "$LINK_NAME"
 # NOTE: use double quotation mark
 myln() {
+	echo ""
 	echo "Info: trying to make link $2 to $1"
 	ln -vis $1 $2
 }
@@ -68,10 +69,10 @@ mydircolors() {
 				echo "(dircolors): not supported."
 				;;
 		esac
-		LINK_NAME="$HOME/.dir_colors"
+		LINK_NAME="$SELF_DIR/.dircolors"
 		if [ -f "$SRC" ]; then
 			myln "$SRC" "$LINK_NAME"
-			echo "Info: you may need to edit .bashrc to load dircolors"
+			#echo "Info: you may need to edit .bashrc to load dircolors"
 		fi
 	fi
 }

@@ -98,7 +98,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 
 # dircolors
-eval `dircolors ~/.dir_colors`
+[ -r ~/.dotfiles/.dircolors ] && eval `dircolors ~/.dotfiles/.dircolors`
 
 #unsetopt autonamedirs
 unsetopt cdablevars
