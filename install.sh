@@ -9,37 +9,49 @@ myln() {
 	echo
 }
 
+# echo "source $BASERC" >> "$RC"
+source_baserc() {
+	BASERC="$1"
+	RC="$2"
+	touch $RC
+	grep -Fq "source $BASERC" "$RC"
+	if [ "$?" -ne "0" ]; then
+		echo "source $BASERC" >> "$RC"
+	fi
+}
+
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-myln "$SELF_DIR/zsh/.zshrc" "$HOME/.zshrc"
-myln "$SELF_DIR/vim/.vimrc" "$HOME/.vimrc"
+# zsh
+source_baserc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
+
+# vim
+source_baserc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
 mkdir -p "$HOME/.vim/autoload"
 myln "$SELF_DIR/vim-pathogen/autoload/pathogen.vim" "$HOME/.vim/autoload/pathogen.vim"
+
+# git
+git config --global include.path "~/.dotfiles/git/dot.gitconfig"
+
+# etc.
 myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 
-# .gitconfig
-while true; do # yes/no function: http://stackoverflow.com/questions/226703
-        read -p "Overwrite '$HOME/.gitconfig'? "
-        case $REPLY in
-                [Yy] | [Yy][Ee][Ss])
-                        cp -i "$SELF_DIR/git/.gitconfig" "$HOME/.gitconfig"
-                        read -p "Enter name for $HOME/.gitconfig: " git_user_name
-                        git config --global user.name $git_user_name
-                        read -p "Enter email for $HOME/.gitconfig: " git_user_email
-                        git config --global user.email $git_user_email
-                        echo
-                        break
-                        ;;
-                [Nn] | [Nn][Oo])
-                        break
-                        ;;
-                *)
-			echo "Answer yes or no."
-                        ;;
-        esac
-done
-
+# yes/no
+#while true; do # yes/no function: http://stackoverflow.com/questions/226703
+#        read -p "yes or no? "
+#        case $REPLY in
+#                [Yy] | [Yy][Ee][Ss])
+#                        break
+#                        ;;
+#                [Nn] | [Nn][Oo])
+#                        break
+#                        ;;
+#                *)
+#			echo "Answer yes or no."
+#                        ;;
+#        esac
+#done
 
 #for src in `find $SELF_DIR -name \*.symlink`; do
 #	src_dir=`dirname ${src#$SELF_DIR/}`
