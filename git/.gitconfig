@@ -1,16 +1,25 @@
-[core]
-	editor = vi
 [user]
-        name =
-        email =
+	name =
+	email =
+[core]
+	editor = vim
+[push]
+	default = simple
 [diff]
-        tool = vimdiff
-[difftool]
-        tool = vimdiff
-        prompt = false
-[alias]
-        ci = commit
+	tool = vimdiff
+#[difftool]
+#	prompt = false
 [merge]
-	tool = kdiff3
+	tool = vimdiff
 [color]
 	ui = auto
+[oh-my-zsh]
+	hide-status = 1
+[pretty]
+	my = format:'%C(auto)%h|%C(green)%an%C(reset)%C(auto)|%ad| %s%d'
+[log]
+	date = iso
+[alias]
+	ci = commit
+	co = checkout
+	logx = log --decorate --pretty=my --date=short
