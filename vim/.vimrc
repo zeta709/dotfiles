@@ -131,6 +131,6 @@ set guifont=Source\ Code\ Pro\ Semi-Bold\ 11
 "" colorscheme
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 "color desert
-if filereadable(glob("~/.dotfiles/vim/vim-colors.vimrc"))
-	source ~/.dotfiles/vim/vim-colors.vimrc
+if filereadable(glob("~/.dotfiles/vim/.vim-colors.vimrc"))
+	source ~/.dotfiles/vim/.vim-colors.vimrc
 endif

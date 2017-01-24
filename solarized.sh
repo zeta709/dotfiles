@@ -9,7 +9,6 @@
 # myln "$TARGET" "$LINK_NAME"
 # NOTE: use double quotation mark
 myln() {
-	echo ""
 	echo "Info: trying to make link $2 to $1"
 	ln -vis $1 $2
 }
@@ -73,6 +72,8 @@ mydircolors() {
 		if [ -f "$SRC" ]; then
 			myln "$SRC" "$LINK_NAME"
 			#echo "Info: you may need to edit .bashrc to load dircolors"
+			echo "Info: done for dircolors"
+			echo ""
 		fi
 	fi
 }
@@ -91,11 +92,9 @@ tmux() {
 				;;
 			dark-256 | light-256)
 				SRC="$SELF_DIR/tmux/256.conf"
-				LINK_NAME="$HOME/.tmux-256.conf"
-				myln "$SRC" "$LINK_NAME"
-				grep -Eq "source\s+~/\.tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
+				grep -Eq "source\s+~/\.dotfiles/tmux/tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
 				if [ "$?" -ne "0" ]; then
-					echo "source ~/.tmux-256.conf" >> "$TMUXCONF"
+					echo "source ~/.dotfiles/tmux/tmux-256.conf" >> "$TMUXCONF"
 				fi
 				;;
 			*)
@@ -117,14 +116,15 @@ tmux() {
 				echo "Error"
 				;;
 		esac
-		LINK_NAME="$HOME/.tmux-colors.conf"
+		LINK_NAME="$SELF_DIR/tmux/.tmux-colors.conf"
 		if [ -f "$SRC" ]; then
 			myln "$SRC" "$LINK_NAME"
-			grep -Eq "source\s+~/\.tmux-colors\.conf(\s*#.*|\s*)$" "$TMUXCONF"
+			grep -Eq "source\s+~/\.dotfiles/tmux/\.tmux-colors\.conf(\s*#.*|\s*)$" "$TMUXCONF"
 			if [ "$?" -ne "0" ]; then
-				echo "source ~/.tmux-colors.conf" >> "$TMUXCONF"
+				echo "source ~/.dotfiles/tmux/.tmux-colors.conf" >> "$TMUXCONF"
 			fi
 			echo "Info: done for tmux."
+			echo ""
 		fi
 
 	else
@@ -153,7 +153,7 @@ vim() {
 			fi
 			# update symbolic link
 			SRC="vim-colors-solarized-${SCHEME}.vimrc"
-			LINK_NAME="vim-colors.vimrc"
+			LINK_NAME=".vim-colors.vimrc"
 			if [ -f "$SELF_DIR/vim/$SRC" ]; then
 				(cd "$SELF_DIR/vim" && myln "$SRC" "$LINK_NAME")
 			fi
@@ -162,6 +162,7 @@ vim() {
 		echo "Warn: vim-colors-solarized or ~/.vimrc not exists."
 	fi
 	echo "Info: done for vim"
+	echo ""
 }
 
 mutt() {
@@ -170,14 +171,11 @@ mutt() {
 	touch "$MUTTRC"
 	if [ -d "$MUTT_SOLARIZED_DIR" ] && [ -f "$MUTTRC" ]; then
 		SRC="$MUTT_SOLARIZED_DIR/mutt-colors-solarized-${SCHEME}.muttrc"
-		LINK_NAME="$HOME/.mutt-colors.muttrc"
+		LINK_NAME="$SELF_DIR/mutt/.mutt-colors.muttrc"
 		if [ -f "$SRC" ]; then
 			myln "$SRC" "$LINK_NAME"
-			grep -Eq "source\s+~/\.mutt-colors\.muttrc(\s*#.*|\s*)$" "$MUTTRC"
-			if [ "$?" -ne "0" ]; then
-				echo "source ~/.mutt-colors.muttrc" >> "$MUTTRC"
-			fi
 			echo "Info: done for mutt."
+			echo ""
 		fi
 	else
 		echo "Warn: mutt-colors-solarized or ~/.muttrc not exists."
@@ -188,4 +186,4 @@ mutt
 vim
 tmux
 mydircolors
-mybash
+#mybash
