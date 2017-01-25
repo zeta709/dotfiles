@@ -31,7 +31,7 @@ mkdir -p "$HOME/.vim/autoload"
 myln "$SELF_DIR/vim-pathogen/autoload/pathogen.vim" "$HOME/.vim/autoload/pathogen.vim"
 
 # git
-git config --global include.path "~/.dotfiles/git/dot.gitconfig"
+git config --global --add include.path "~/.dotfiles/git/dot.gitconfig"
 
 # etc.
 myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
