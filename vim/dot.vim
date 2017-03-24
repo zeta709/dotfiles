@@ -134,3 +134,16 @@ set guifont=Source\ Code\ Pro\ Semi-Bold\ 11
 if filereadable(glob("~/.dotfiles/vim/.vim-colors.vimrc"))
 	source ~/.dotfiles/vim/.vim-colors.vimrc
 endif
+
+"" cscope
+"set csprg=/usr/bin/cscope
+set cst
+set nocsverb
+let cscope_file = findfile("cscope.out", ".;")
+"echo cscope_file
+if !empty(cscope_file) && filereadable(cscope_file)
+	let cscope_pre = strpart(cscope_file, 0, match(cscope_file, "/cscope.out$"))
+	"echo cscope_pre
+	exec "cs add" cscope_file cscope_pre
+endif
+set csverb
