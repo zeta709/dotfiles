@@ -198,6 +198,18 @@ prompt_virtualenv() {
   fi
 }
 
+prompt_container() {
+	# TODO: check correctness
+	if $(cat /proc/1/sched | head -n1 | grep -q "(1,"); then
+	else
+		if [[ -n $container_name ]]; then
+			prompt_segment blue black "($container_name)"
+		else
+			prompt_segment blue black "(lxc)"
+		fi
+	fi
+}
+
 # Status:
 # - was there an error
 # - am I root
@@ -216,6 +228,7 @@ prompt_status() {
 build_prompt() {
   RETVAL=$?
   prompt_status
+  prompt_container
   prompt_virtualenv
   prompt_context
   prompt_dir
