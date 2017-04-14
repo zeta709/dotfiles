@@ -18,6 +18,8 @@
 	my = format:%C(auto)%h|%C(green)%an%C(reset)%C(auto)|%ad| %s%d
 	my2 = format:%m %C(auto)%h|%C(green)%an%C(reset)%C(auto)|%ad| %s%d
 	my3 = format:%m %C(auto)%h|%C(green)%an%C(reset)%C(auto)|%ad| %w(0,0,4)%s%+b%-
+	my-nc = format:%h|%an|%ad| %s%d
+	my2-nc = format:%m %h|%an|%ad| %s%d
 [log]
 	date = iso
 [alias]
@@ -26,5 +28,5 @@
 	logs = log --decorate --pretty=my --date=short
 	unmerged-s-internal = rev-list --cherry-pick --pretty=my2 --date=short --no-merges --right-only
 	unmerged-x-internal = rev-list --cherry-pick --pretty=my3 --date=short --no-merges --right-only
-	unmerged-s  = "!f() { git unmerged-s-internal $1 | grep -v '^commit [0-9a-z]*'; }; f"
+	unmerged-s  = "!f() { git unmerged-s-internal $@ | grep -v '^commit [0-9a-z]*'; }; f"
 	unmerged-x  = "!f() { git unmerged-x-internal $1 | grep -v '^commit [0-9a-z]*'; }; f"
