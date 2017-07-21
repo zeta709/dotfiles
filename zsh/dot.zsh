@@ -103,4 +103,4 @@ alias mv="mv -i"
 #unsetopt autonamedirs
 unsetopt cdablevars
 
-source ~/.dotfiles/z/z.sh
+source $HOME/.dotfiles/z/z.sh

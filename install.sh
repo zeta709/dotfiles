@@ -10,7 +10,7 @@ myln() {
 }
 
 # echo "source $BASERC" >> "$RC"
-source_baserc() {
+source_rc() {
 	BASERC="$1"
 	RC="$2"
 	touch $RC
@@ -23,12 +23,15 @@ source_baserc() {
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # zsh
-source_baserc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
+source_rc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
 
 # vim
-source_baserc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
+source_rc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
 mkdir -p "$HOME/.vim/autoload"
 myln "$SELF_DIR/vim-pathogen/autoload/pathogen.vim" "$HOME/.vim/autoload/pathogen.vim"
+
+# gdb
+source_rc "~/.dotfiles/gdb/dot.gdb" "$HOME/.gdbinit"
 
 # git
 git config --global --add include.path "~/.dotfiles/git/dot.gitconfig"
