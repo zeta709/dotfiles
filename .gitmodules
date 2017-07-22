@@ -19,3 +19,6 @@
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
+[submodule "mintty-colors-solarized"]
+	path = mintty-colors-solarized
+	url = https://github.com/mavnn/mintty-colors-solarized
