@@ -138,21 +138,21 @@ vim() {
 	VIM_SOLARIZED_DIR="$SELF_DIR/vim-colors-solarized"
 	touch "$VIMRC"
 	if [ -d "$VIM_SOLARIZED_DIR" ] && [ -f "$VIMRC" ]; then
-			# install solarized color scheme
-			SRC="$VIM_SOLARIZED_DIR"
-			LINK_NAME="$HOME/.vim/bundle/vim-colors-solarized"
-			if [ -d "$LINK_NAME" ]; then
-				:
-			else
-				mkdir -pv "$HOME/.vim/bundle"
-				myln "$SRC" "$LINK_NAME"
-			fi
-			# update symbolic link
-			SRC="vim-colors-solarized-${SCHEME}.vimrc"
-			LINK_NAME=".vim-colors.vimrc"
-			if [ -f "$SELF_DIR/vim/$SRC" ]; then
-				(cd "$SELF_DIR/vim" && myln "$SRC" "$LINK_NAME")
-			fi
+		# install solarized color scheme
+		SRC="$VIM_SOLARIZED_DIR"
+		LINK_NAME="$HOME/.vim/bundle/vim-colors-solarized"
+		if [ -d "$LINK_NAME" ]; then
+			:
+		else
+			mkdir -pv "$HOME/.vim/bundle"
+			myln "$SRC" "$LINK_NAME"
+		fi
+		# update symbolic link
+		SRC="vim-colors-solarized-${SCHEME}.vimrc"
+		LINK_NAME=".vim-colors.vimrc"
+		if [ -f "$SELF_DIR/vim/$SRC" ]; then
+			(cd "$SELF_DIR/vim" && myln "$SRC" "$LINK_NAME")
+		fi
 	else
 		echo "Warn: vim-colors-solarized or ~/.vimrc not exists."
 	fi
