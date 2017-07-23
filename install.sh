@@ -26,9 +26,9 @@ SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source_rc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
 
 # vim
-source_rc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
 mkdir -p "$HOME/.vim/autoload"
-myln "$SELF_DIR/vim-pathogen/autoload/pathogen.vim" "$HOME/.vim/autoload/pathogen.vim"
+myln "$SELF_DIR/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
+source_rc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
 
 # gdb
 source_rc "~/.dotfiles/gdb/dot.gdb" "$HOME/.gdbinit"

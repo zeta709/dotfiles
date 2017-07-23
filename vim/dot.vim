@@ -1,5 +1,10 @@
 "" documentation: <ESC>:help options
 
+"" plugin
+if filereadable(glob("~/.dotfiles/vim/dot-plugins.vim"))
+	source ~/.dotfiles/vim/dot-plugins.vim
+endif
+
 set number " nu
 set display+=lastline " dy
 set display+=uhex " dy
@@ -111,9 +116,6 @@ au BufRead,BufNewFile *.md setlocal filetype=markdown
 
 "" for java
 "let java_space_errors=1
-
-"" pathogen
-execute pathogen#infect()
 
 "" space errors
 "" space before tab
