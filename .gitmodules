@@ -1,18 +1,12 @@
 [submodule "mutt-colors-solarized"]
 	path = mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
-[submodule "vim-colors-solarized"]
-	path = vim-colors-solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "tmux-colors-solarized"]
 	path = tmux-colors-solarized
 	url = https://github.com/seebi/tmux-colors-solarized.git
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "vim-pathogen"]
-	path = vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
@@ -22,3 +16,6 @@
 [submodule "mintty-colors-solarized"]
 	path = mintty-colors-solarized
 	url = https://github.com/mavnn/mintty-colors-solarized
+[submodule "vim-plug"]
+	path = vim-plug
+	url = https://github.com/junegunn/vim-plug.git
