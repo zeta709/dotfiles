@@ -1,10 +1,5 @@
 "" documentation: <ESC>:help options
 
-"" plugin
-if filereadable(glob("~/.dotfiles/vim/dot-plugins.vim"))
-	source ~/.dotfiles/vim/dot-plugins.vim
-endif
-
 set number " nu
 set display+=lastline " dy
 set display+=uhex " dy

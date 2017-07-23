@@ -28,6 +28,15 @@ source_rc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
 # vim
 mkdir -p "$HOME/.vim/autoload"
 myln "$SELF_DIR/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
+if ! grep "call plug#begin" "$HOME/.vimrc"; then
+	cat <<- 'EOF' >> "$HOME/.vimrc"
+		"" vim plugins
+		call plug#begin('~/.vim/plugged')
+		source ~/.dotfiles/vim/dot-plugins.vim
+		call plug#end()
+
+	EOF
+fi
 source_rc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
 
 # gdb
