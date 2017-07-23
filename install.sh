@@ -5,7 +5,7 @@
 # NOTE: use double quotation mark
 myln() {
 	echo "Info: trying to make link $2 to $1"
-	ln -vis $1 $2
+	ln -vis "$1" "$2"
 	echo
 }
 
@@ -13,11 +13,11 @@ myln() {
 source_rc() {
 	BASERC="$1"
 	RC="$2"
-	touch $RC
-	grep -Fq "source $BASERC" "$RC"
-	if [ "$?" -ne "0" ]; then
+	touch "$RC"
+	if ! grep -Fq "source $BASERC" "$RC"; then
 		echo "source $BASERC" >> "$RC"
 	fi
+	echo >> "$RC"
 }
 
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -42,7 +42,7 @@ myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 
 # yes/no
 #while true; do # yes/no function: http://stackoverflow.com/questions/226703
-#        read -p "yes or no? "
+#        read -rp "yes or no? "
 #        case $REPLY in
 #                [Yy] | [Yy][Ee][Ss])
 #                        break
@@ -54,15 +54,4 @@ myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 #			echo "Answer yes or no."
 #                        ;;
 #        esac
-#done
-
-#for src in `find $SELF_DIR -name \*.symlink`; do
-#	src_dir=`dirname ${src#$SELF_DIR/}`
-#	dest_dir=`dirname $HOME/$src_dir`
-#	dest="$dest_dir/`basename ${src%.*}`"
-#	if [ -e $dest ]; then
-#		echo "$dest aleady exists."
-#	else
-#		echo "ln -s $src $dest"
-#	fi
 #done

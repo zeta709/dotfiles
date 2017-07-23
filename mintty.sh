@@ -3,10 +3,14 @@
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # TODO: prevent muliple installs
-echo "# solarized" >> ~/.minttyrc
-cat ${SELF_DIR}/mintty-colors-solarized/.minttyrc.dark >> ~/.minttyrc
-echo "# dot.mintty" >> ~/.minttyrc
-cat ${SELF_DIR}/mintty/dot.mintty >> ~/.minttyrc
+{
+	echo "# solarized"
+	cat "${SELF_DIR}/mintty-colors-solarized/.minttyrc.dark"
+	echo
+	echo "# dot.mintty"
+	cat "${SELF_DIR}/mintty/dot.mintty"
+	echo
+} >> ~/.minttyrc
 
 cat <<- 'EOF' >> ~/.vimrc
 	" mintty

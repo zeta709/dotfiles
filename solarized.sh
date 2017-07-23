@@ -10,7 +10,8 @@
 # NOTE: use double quotation mark
 myln() {
 	echo "Info: trying to make link $2 to $1"
-	ln -vis $1 $2
+	ln -vis "$1" "$2"
+	echo
 }
 
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -27,8 +28,7 @@ mybash() {
 	BASHRC="$HOME/.bashrc"
 	case "$SCHEME" in
 		dark-16 | light-16)
-			grep -Eq "source\s+~/.bash-256.sh(\s*#.*|\s*)$" "$BASHRC"
-			if [ "$?" -eq "0" ]; then
+			if ! grep -Eq "source\\s+~/.bash-256.sh(\\s*#.*|\\s*)$" "$BASHRC"; then
 				sed -ri '/source\s+~\/\.bash-256\.sh(\s*#.*|\s*)$/d' "$BASHRC"
 			fi
 			echo "Info: you may need to do \"export TERM=xterm\""
@@ -38,8 +38,7 @@ mybash() {
 			SRC="$SELF_DIR/bash/256.sh"
 			LINK_NAME="$HOME/.bash-256.sh"
 			myln "$SRC" "$LINK_NAME"
-			grep -Eq "source\s+~/\.bash-256\.sh(\s*#.*|\s*)$" "$BASHRC"
-			if [ "$?" -ne "0" ]; then
+			if ! grep -Eq "source\\s+~/\\.bash-256\\.sh(\\s*#.*|\\s*)$" "$BASHRC"; then
 				echo "source ~/.bash-256.sh" >> "$BASHRC"
 			fi
 			;;
@@ -85,15 +84,13 @@ tmux() {
 	if [ -d "$TMUX_SOLARIZED_DIR" ] && [ -f "$TMUXCONF" ]; then
 		case "$SCHEME" in
 			dark-16 | light-16)
-				grep -Eq "source\s+~/\.tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
-				if [ "$?" -eq "0" ]; then
+				if ! grep -Eq "source\\s+~/\\.tmux-256\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 					sed -ri '/source\s+~\/\.tmux-256\.conf(\s*#.*|\s*)$/d' "$TMUXCONF"
 				fi
 				;;
 			dark-256 | light-256)
 				SRC="$SELF_DIR/tmux/256.conf"
-				grep -Eq "source\s+~/\.dotfiles/tmux/tmux-256\.conf(\s*#.*|\s*)$" "$TMUXCONF"
-				if [ "$?" -ne "0" ]; then
+				if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/tmux-256\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 					echo "source ~/.dotfiles/tmux/tmux-256.conf" >> "$TMUXCONF"
 				fi
 				;;
@@ -119,8 +116,7 @@ tmux() {
 		LINK_NAME="$SELF_DIR/tmux/.tmux-colors.conf"
 		if [ -f "$SRC" ]; then
 			myln "$SRC" "$LINK_NAME"
-			grep -Eq "source\s+~/\.dotfiles/tmux/\.tmux-colors\.conf(\s*#.*|\s*)$" "$TMUXCONF"
-			if [ "$?" -ne "0" ]; then
+			if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/\\.tmux-colors\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 				echo "source ~/.dotfiles/tmux/.tmux-colors.conf" >> "$TMUXCONF"
 			fi
 			echo "Info: done for tmux."
