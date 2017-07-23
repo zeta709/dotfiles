@@ -9,6 +9,10 @@ Plug 'scrooloose/nerdtree'
 "" tags
 Plug 'majutsushi/tagbar'
 
+"" git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 
 map <C-n> :NERDTreeToggle<CR>
