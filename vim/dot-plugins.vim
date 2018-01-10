@@ -27,4 +27,18 @@ nmap <F8> :TagbarToggle<CR>
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" vim-clang-format
+Plug 'rhysd/vim-clang-format'
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+"let g:clang_format#auto_formatexpr = 1
+let g:clang_format#enable_fallback_style = 0
+nnoremap <C-S-i> :ClangFormat<CR>
+
+""
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/gv.vim'
+
 "" End of file `dot-plgin.vim`.

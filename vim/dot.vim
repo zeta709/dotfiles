@@ -135,6 +135,7 @@ endif
 "" cscope
 "set csprg=/usr/bin/cscope
 set cst
+set csto=1
 set nocsverb
 let cscope_file = findfile("cscope.out", ".;")
 "echo cscope_file
@@ -144,3 +145,6 @@ if !empty(cscope_file) && filereadable(cscope_file)
 	exec "cs add" cscope_file cscope_pre
 endif
 set csverb
+
+"" ctags
+set tags=./tags;
