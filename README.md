@@ -20,6 +20,10 @@ $ ./install.sh
 $ git submodule foreach git pull origin master
 ```
 
+### Install vim plugins
+
+Type `:PlugInstall` in vim.
+
 Applying solarized theme
 ------------------------
 

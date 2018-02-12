@@ -30,11 +30,12 @@ Plug 'airblade/vim-gitgutter'
 " vim-clang-format
 Plug 'rhysd/vim-clang-format'
 let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format = 1
+let g:clang_format#auto_format = 0
 let g:clang_format#auto_format_on_insert_leave = 1
 "let g:clang_format#auto_formatexpr = 1
 let g:clang_format#enable_fallback_style = 0
-nnoremap <C-S-i> :ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
 ""
 Plug 'kien/ctrlp.vim'

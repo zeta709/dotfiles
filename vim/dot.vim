@@ -10,7 +10,7 @@ set hlsearch " hls
 if &history < 500
 	set history=500
 endif
-set complete-=i " do not scan included files for autocomplete
+"set complete-=i " do not scan included files for autocomplete
 
 set wildmenu " command-line completion
 
@@ -21,7 +21,7 @@ set backspace=indent,eol,start
 set cm=blowfish
 
 "" statusline
-set laststatus=2 " ls
+set laststatus=2
 "" http://www.vim.org/tips/tip.php?tip_id=735
 if has("statusline")
 set statusline=
@@ -50,20 +50,6 @@ set fenc=utf-8
 set fencs=ucs-bom,utf-8,cp949,latin1
 set nobomb
 
-"" vim 7.2, windows
-"lang en
-"source $VIMRUNTIME/delmenu.vim
-"set langmenu=ko.UTF-8
-"source $VIMRUNTIME/menu.vim
-
-"" vim 7.3, windows
-"set langmenu=en_US.UTF-8
-"let $LANG = 'en_US.UTF-8'
-"set langmenu=ko_KR.UTF-8
-"let $LANG = 'ko_KR.UTF-8'
-"source $VIMRUNTIME/delmenu.vim
-"source $VIMRUNTIME/menu.vim
-
 
 """"""""""""""""""""""""""""""""""""""""
 "" syntax, indent
@@ -79,8 +65,8 @@ filetype plugin indent on
 "set formatoptions+=ro
 
 "" for c,cpp
-nmap <C-J> vip=
-map <F5> gg=G``
+"nmap <C-J> vip=
+"map <F5> gg=G``
 au filetype c,cpp setlocal cindent
 au filetype c,cpp setlocal noexpandtab
 au filetype c,cpp setlocal tabstop=8
@@ -120,10 +106,6 @@ au BufRead,BufNewFile *.md setlocal filetype=markdown
 "syntax match myLongLine /\%>80v.\+/
 "hi def link mySpaceError Error
 "hi def link myLongLine Error
-
-"" font
-"set guifont=Dejavu\ Sans\ Mono:h10:cDEFAULT
-set guifont=Source\ Code\ Pro\ Semi-Bold\ 11
 
 "" colorscheme
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
