@@ -11,8 +11,9 @@ ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster-light"
-#ZSH_THEME="gentoo"
+if [[ -n "$ZSH_THEME" ]]; then
+	ZSH_THEME="agnoster-light"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
