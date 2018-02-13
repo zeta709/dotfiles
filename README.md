@@ -24,6 +24,17 @@ $ git submodule foreach git pull origin master
 
 Type `:PlugInstall` in vim.
 
+### Font configuration (Windows)
+
+Open regedit and go to `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink`.
+Add an multi-string value for your font and edit data.
+
+```
+SEGUISYM.TTF,Segoe UI Symbol
+```
+
+[https://docs.microsoft.com/globalization/input/font-technology]
+
 Applying solarized theme
 ------------------------
 
