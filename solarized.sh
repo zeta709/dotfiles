@@ -5,97 +5,113 @@
 # https://gist.github.com/zeta709/6233038#file-readme-md
 # https://gist.github.com/zeta709/6232968#file-readme-md
 
-# myln() usage
-# myln "$TARGET" "$LINK_NAME"
-# NOTE: use double quotation mark
-myln() {
-	echo "Info: trying to make link $2 to $1"
-	ln -vis "$1" "$2"
-	echo
-}
-
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "Choose color scheme:"
-select ans in "dark-16" "light-16" "dark-256" "light-256"; do
+echo "Choose solarized color scheme:"
+select ans in "dark-16" "light-16" "dark-256" "light-256" "unsolarized"; do
 	if [ -n "$ans" ]; then
 		SCHEME="$ans"
 		break;
 	fi
 done
 
-mybash() {
-	BASHRC="$HOME/.bashrc"
+mysh() {
+	local SHRCBASE=".zshrc"
+	local SHRC="$HOME/$SHRCBASE"
 	case "$SCHEME" in
-		dark-16 | light-16)
-			if ! grep -Eq "source\\s+~/.bash-256.sh(\\s*#.*|\\s*)$" "$BASHRC"; then
-				sed -ri '/source\s+~\/\.bash-256\.sh(\s*#.*|\s*)$/d' "$BASHRC"
+		unsolarized | dark-16 | light-16)
+			if ! grep -Eq "source\\s+~/.bash-256.sh(\\s*#.*|\\s*)$" "$SHRC"; then
+				sed -ri '/source\s+~\/\.bash-256\.sh(\s*#.*|\s*)$/d' "$SHRC"
+				echo "info: run \"export TERM=xterm\""
 			fi
-			echo "Info: you may need to do \"export TERM=xterm\""
-			echo "Info: you may need to change your terminal palette."
+			echo "info: change your terminal palette"
 			;;
 		dark-256 | light-256)
 			SRC="$SELF_DIR/bash/256.sh"
 			LINK_NAME="$HOME/.bash-256.sh"
-			myln "$SRC" "$LINK_NAME"
-			if ! grep -Eq "source\\s+~/\\.bash-256\\.sh(\\s*#.*|\\s*)$" "$BASHRC"; then
-				echo "source ~/.bash-256.sh" >> "$BASHRC"
+			ln -vis "$SRC" "$LINK_NAME"
+			if ! grep -Eq "source\\s+~/\\.bash-256\\.sh(\\s*#.*|\\s*)$" "$SHRC"; then
+				echo "source ~/.bash-256.sh" >> "$SHRC"
 			fi
 			;;
 		*)
 			echo "Error"
 			;;
 	esac
-	echo "Info: you may need to do \"source ~/.bashrc\""
+	echo "info: run \"source ~/$SHRCBASE\""
+	echo
 }
 
 mydircolors() {
-	DIRCOLORS_SOLARIZED_DIR="$SELF_DIR/dircolors-solarized"
-	if [ -d "$DIRCOLORS_SOLARIZED_DIR" ]; then
-		case "$SCHEME" in
-			dark-16)
-				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.ansi-dark"
-				;;
-			light-16)
-				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.ansi-light"
-				;;
-			dark-256)
-				SRC="$DIRCOLORS_SOLARIZED_DIR/dircolors.256dark"
-				;;
-			light-256 | *)
-				SRC=""
-				echo "(dircolors): not supported."
-				;;
-		esac
-		LINK_NAME="$SELF_DIR/.dircolors"
-		if [ -f "$SRC" ]; then
-			myln "$SRC" "$LINK_NAME"
-			#echo "Info: you may need to edit .bashrc to load dircolors"
-			echo "Info: done for dircolors"
-			echo ""
-		fi
+	local DIRCOLORS_SOLARIZED_DIR="$SELF_DIR/dircolors-solarized"
+	local SRC=""
+	local LINK_NAME="$SELF_DIR/.dircolors"
+
+	if [ -L $LINK_NAME ]; then
+		rm -f $LINK_NAME
+	else
+		echo "error: $LINK_NAME is not symbolic link"
 	fi
+
+	case "$SCHEME" in
+		unsolarized)
+			;;
+		dark-16)
+			SRC="dircolors.ansi-dark"
+			;;
+		light-16)
+			SRC="dircolors.ansi-light"
+			;;
+		dark-256)
+			SRC="dircolors.256dark"
+			;;
+		light-256 | *)
+			echo "error: $SCHEME is not supported for dircolors"
+			;;
+	esac
+
+	if [ -z "$SRC" ]; then
+		echo "dircolors: not solarized"
+		return
+	fi
+
+	if [ ! -d "$DIRCOLORS_SOLARIZED_DIR" ]; then
+		echo "error: $DIRCOLORS_SOLARIZED_DIR not found"
+		echo "dircolors: not solarized"
+		return
+	fi
+
+	SRC="$DIRCOLORS_SOLARIZED_DIR/$SRC"
+	if [ ! -f "$SRC" ]; then
+		echo "error: $SRC not found"
+		echo "dircolors: not solarized"
+		return
+	fi
+
+	ln -vis "$SRC" "$LINK_NAME"
+	echo "dircolors: solarized"
+	echo
 }
 
 tmux() {
-	TMUXCONF="$HOME/.tmux.conf"
-	TMUX_SOLARIZED_DIR="$SELF_DIR/tmux-colors-solarized"
+	local TMUXCONF="$HOME/.tmux.conf"
+	local TMUX_SOLARIZED_DIR="$SELF_DIR/tmux-colors-solarized"
+	local SRC=""
 	touch "$TMUXCONF"
 	if [ -d "$TMUX_SOLARIZED_DIR" ] && [ -f "$TMUXCONF" ]; then
 		case "$SCHEME" in
-			dark-16 | light-16)
+			dark-16 | light-16 | unsolarized)
 				if ! grep -Eq "source\\s+~/\\.tmux-256\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 					sed -ri '/source\s+~\/\.tmux-256\.conf(\s*#.*|\s*)$/d' "$TMUXCONF"
 				fi
 				;;
 			dark-256 | light-256)
-				SRC="$SELF_DIR/tmux/256.conf"
 				if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/tmux-256\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 					echo "source ~/.dotfiles/tmux/tmux-256.conf" >> "$TMUXCONF"
 				fi
 				;;
 			*)
-				echo "Error"
+				echo "error: $SCHEME is not supported for tmux"
 				;;
 		esac
 		case "$SCHEME" in
@@ -108,73 +124,93 @@ tmux() {
 			dark-256 | light-256)
 				SRC="$TMUX_SOLARIZED_DIR/tmuxcolors-256.conf"
 				;;
+			unsolarized)
+				;;
 			*)
-				SRC=""
-				echo "Error"
+				echo "error: $SCHEME is not supported for tmux"
 				;;
 		esac
 		LINK_NAME="$SELF_DIR/tmux/.tmux-colors.conf"
 		if [ -f "$SRC" ]; then
-			myln "$SRC" "$LINK_NAME"
+			ln -vis "$SRC" "$LINK_NAME"
 			if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/\\.tmux-colors\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
 				echo "source ~/.dotfiles/tmux/.tmux-colors.conf" >> "$TMUXCONF"
 			fi
-			echo "Info: done for tmux."
-			echo ""
+			echo "tmux: solarized"
+		else
+			if [ -L $LINK_NAME ]; then
+				rm -f $LINK_NAME
+			fi
+			echo "tmux: not solarized"
 		fi
 
 	else
-		echo "Warn: tmux-colors-solarized or ~/.tmux.conf not exists."
+		echo "error: tmux-colors-solarized not found"
+		echo "tmux: not solarized"
 	fi
+	echo
 }
 
 vim() {
-	echo "Info: begin set up for vim"
-	VIMRC="$HOME/.vimrc"
-	VIM_SOLARIZED_DIR="$SELF_DIR/vim-colors-solarized"
-	touch "$VIMRC"
-	if [ -d "$VIM_SOLARIZED_DIR" ] && [ -f "$VIMRC" ]; then
-		# install solarized color scheme
-		SRC="$VIM_SOLARIZED_DIR"
-		LINK_NAME="$HOME/.vim/bundle/vim-colors-solarized"
-		if [ -d "$LINK_NAME" ]; then
-			:
-		else
-			mkdir -pv "$HOME/.vim/bundle"
-			myln "$SRC" "$LINK_NAME"
-		fi
-		# update symbolic link
-		SRC="vim-colors-solarized-${SCHEME}.vimrc"
-		LINK_NAME=".vim-colors.vimrc"
-		if [ -f "$SELF_DIR/vim/$SRC" ]; then
-			(cd "$SELF_DIR/vim" && myln "$SRC" "$LINK_NAME")
-		fi
+	local VIM_SOLARIZED_DIR="$HOME/.vim/plugged/vim-colors-solarized"
+	local SRC=""
+	local LINK_NAME="$SELF_DIR/vim/.vim-colors.vimrc"
+
+	if [ -L $LINK_NAME ]; then
+		rm -f $LINK_NAME
 	else
-		echo "Warn: vim-colors-solarized or ~/.vimrc not exists."
+		echo "error: $LINK_NAME is not symbolic link"
 	fi
-	echo "Info: done for vim"
-	echo ""
+
+	case "$SCHEME" in
+		unsolarized)
+			;;
+		*)
+			SRC="vim-colors-solarized-${SCHEME}.vimrc"
+			;;
+	esac
+
+	if [ -z "$SRC" ]; then
+		echo "vim: not solarized"
+		return
+	fi
+
+	if [ ! -d "$VIM_SOLARIZED_DIR" ]; then
+		echo "error: vim-colors-solarized not found"
+		echo "vim: not solarized"
+		return
+	fi
+
+	if [ ! -f "$SELF_DIR/vim/$SRC" ]; then
+		echo "error: $SRC not found"
+		echo "vim: not solarized"
+		return
+	fi
+
+	ln -vis "$SRC" "$LINK_NAME"
+	echo "vim: solarized"
+	echo
 }
 
 mutt() {
-	MUTTRC="$HOME/.muttrc"
-	MUTT_SOLARIZED_DIR="$SELF_DIR/mutt-colors-solarized"
+	local MUTTRC="$HOME/.muttrc"
+	local MUTT_SOLARIZED_DIR="$SELF_DIR/mutt-colors-solarized"
 	touch "$MUTTRC"
 	if [ -d "$MUTT_SOLARIZED_DIR" ] && [ -f "$MUTTRC" ]; then
 		SRC="$MUTT_SOLARIZED_DIR/mutt-colors-solarized-${SCHEME}.muttrc"
 		LINK_NAME="$SELF_DIR/mutt/.mutt-colors.muttrc"
 		if [ -f "$SRC" ]; then
-			myln "$SRC" "$LINK_NAME"
+			ln -vis "$SRC" "$LINK_NAME"
 			echo "Info: done for mutt."
-			echo ""
 		fi
 	else
 		echo "Warn: mutt-colors-solarized or ~/.muttrc not exists."
 	fi
+	echo
 }
 
-mutt
+#mutt
 vim
 tmux
 mydircolors
-#mybash
+#mysh
