@@ -45,6 +45,9 @@ source_rc "~/.dotfiles/gdb/dot.gdb" "$HOME/.gdbinit"
 # git
 git config --global --add include.path "~/.dotfiles/git/dot.gitconfig"
 
+# tmux
+source_rc "~/.dotfiles/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
+
 # etc.
 myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
