@@ -1,5 +1,5 @@
 # ignore generated symbolic links
 .dircolors
 vim/.colors.vim
-mutt/.mutt-colors.muttrc
-tmux/.tmux-colors.conf
+mutt/.colors.mutt
+tmux/.colors.tmux.conf

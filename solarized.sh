@@ -128,11 +128,11 @@ tmux() {
 				echo "error: $SCHEME is not supported for tmux"
 				;;
 		esac
-		LINK_NAME="$SELF_DIR/tmux/.tmux-colors.conf"
+		LINK_NAME="$SELF_DIR/tmux/.colors.tmux.conf"
 		if [ -f "$SRC" ]; then
 			ln -vis "$SRC" "$LINK_NAME"
-			if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/\\.tmux-colors\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
-				echo "source ~/.dotfiles/tmux/.tmux-colors.conf" >> "$TMUXCONF"
+			if ! grep -Eq "source\\s+~/\\.dotfiles/tmux/\\.colors\\.tmux\\.conf(\\s*#.*|\\s*)$" "$TMUXCONF"; then
+				echo "source ~/.dotfiles/tmux/.colors.tmux.conf" >> "$TMUXCONF"
 			fi
 			echo "tmux: solarized"
 		else
@@ -194,7 +194,7 @@ mutt() {
 	touch "$MUTTRC"
 	if [ -d "$MUTT_SOLARIZED_DIR" ] && [ -f "$MUTTRC" ]; then
 		SRC="$MUTT_SOLARIZED_DIR/mutt-colors-solarized-${SCHEME}.muttrc"
-		LINK_NAME="$SELF_DIR/mutt/.mutt-colors.muttrc"
+		LINK_NAME="$SELF_DIR/mutt/.colors.mutt"
 		if [ -f "$SRC" ]; then
 			ln -vis "$SRC" "$LINK_NAME"
 			echo "Info: done for mutt."
@@ -205,7 +205,7 @@ mutt() {
 	echo
 }
 
-#mutt
+mutt
 vim
 tmux
 mydircolors

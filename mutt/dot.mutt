@@ -26,4 +26,4 @@ iconv-hook X-Windows-949 MSCP949
 
 #set allow_8bit
 #set use_8bitmime
-source ~/.dotfiles/mutt/.mutt-colors.muttrc
+source ~/.dotfiles/mutt/.colors.mutt
