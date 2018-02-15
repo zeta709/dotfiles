@@ -21,7 +21,7 @@ source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 [ -f "$HOME/.vimrc" ] || touch "$HOME/.vimrc"
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 	mkdir -p "$HOME/.vim/autoload"
-	ln -vis "$SELF_DIR/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
+	ln -vis "$SELF_DIR/vim/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
 fi
 if ! grep -q "call plug#begin" "$HOME/.vimrc"; then
 	cat <<- EOF >> "$HOME/.vimrc"

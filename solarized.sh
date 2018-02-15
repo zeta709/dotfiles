@@ -93,7 +93,7 @@ mydircolors() {
 
 tmux() {
 	local TMUXCONF="$HOME/.tmux.conf"
-	local TMUX_SOLARIZED_DIR="$SELF_DIR/tmux-colors-solarized"
+	local TMUX_SOLARIZED_DIR="$SELF_DIR/tmux/tmux-colors-solarized"
 	local SRC=""
 	touch "$TMUXCONF"
 	if [ -d "$TMUX_SOLARIZED_DIR" ] && [ -f "$TMUXCONF" ]; then
@@ -189,8 +189,8 @@ vim() {
 }
 
 mutt() {
-	local MUTTRC="$HOME/.muttrc"
-	local MUTT_SOLARIZED_DIR="$SELF_DIR/mutt-colors-solarized"
+	local MUTTRC="$HOME/dot.mutt"
+	local MUTT_SOLARIZED_DIR="$SELF_DIR/mutt/mutt-colors-solarized"
 	touch "$MUTTRC"
 	if [ -d "$MUTT_SOLARIZED_DIR" ] && [ -f "$MUTTRC" ]; then
 		SRC="$MUTT_SOLARIZED_DIR/mutt-colors-solarized-${SCHEME}.muttrc"
