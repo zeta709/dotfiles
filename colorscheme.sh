@@ -17,129 +17,124 @@ select ans in "solarized-dark-16" "solarized-light-16" \
 	fi
 done
 
-# usage: nullify $LINK_NAME || return 1
-nullify() {
+# usage: rmlink_safe $LINK_NAME || return 1
+rmlink_safe() {
 	if [ -f "$1" ] && [ ! -L "$1" ]; then
 		echo "error: the file '$1' exists but is not a symbolic link" && return 1
 	else
-		rm -f "$1" && ln -is /dev/null "$1"
+		rm -f "$1" # && ln -is /dev/null "$1"
+	fi
+}
+
+# color_scheme
+color_scheme() {
+	if [ "$#" -ne 5 ]; then
+		return 1
+	fi
+	local MODULE="$1"
+	local SCHEME="$2"
+	local DIR="$3"
+	local SRC="$4"
+	local LINK_NAME="$5"
+
+	local SRC_PATH="$DIR/$SRC"
+	local LINK_PATH="$DIR/$LINK_NAME"
+	rmlink_safe $LINK_PATH || return 1
+	if [ -n "$SRC" ]; then
+		if [ -f "$SRC_PATH" ]; then
+			ln -vs "$SRC" "$LINK_PATH"
+			echo "$MODULE: $SCHEME"
+		else
+			ln -vs /dev/null "$LINK_PATH"
+			echo "$MODULE: error: no such file: $SRC_PATH"
+		fi
+	else
+		ln -vs /dev/null "$LINK_PATH"
+		echo "$MODULE: (default)"
 	fi
 }
 
 mysh() {
 	local LINK_NAME="$SELF_DIR/sh/.term.sh"
-	nullify "$LINK_NAME" || return 1
+	rmlink_safe "$LINK_NAME" || return 1
 
 	case "$SCHEME" in
 		solarized-dark-256 | solarized-light-256)
-			ln -vsf "256.sh" "$LINK_NAME"
+			ln -vs "256.sh" "$LINK_NAME"
 			;;
 		*)
-			ln -vsf "16.sh" "$LINK_NAME"
+			ln -vs "16.sh" "$LINK_NAME"
 			;;
 	esac
 	echo "info: type \"source $LINK_NAME\" to apply the color scheme in this terminal."
 }
 
 mydircolors() {
-	local LINK_NAME="$SELF_DIR/.dircolors"
-	nullify $LINK_NAME || return 1
-
+	local DIR="$SELF_DIR"
 	local SRC=""
-	case "$SCHEME" in
-		default)
-			;;
-		solarized-dark-16)
-			SRC="dircolors-solarized/dircolors.ansi-dark"
-			;;
-		solarized-light-16)
-			SRC="dircolors-solarized/dircolors.ansi-light"
-			;;
-		solarized-dark-256)
-			SRC="dircolors-solarized/dircolors.256dark"
-			;;
-		solarized-light-256 | *)
-			SRC="dircolors-solarized/dircolors.256dark"
-			echo "error: $SCHEME is not supported for dircolors"
-			;;
-	esac
+	local LINK_NAME=".dircolors"
 
-	if [ -n "$SRC" ]; then
-		if [ -f "$SELF_DIR/$SRC" ]; then
-			ln -vsf "$SRC" "$LINK_NAME"
-			echo "dircolors: $SCHEME"
-		else
-			echo "error: no such file: $SELF_DIR/$SRC"
-		fi
-	else
-		echo "dircolors: default"
+	if [ "$SCHEME" != "solarized-light-256" ]; then
+		echo "error: $SCHEME is not supported for dircolors"
 	fi
+
+	if [ "$SCHEME" != "default" ]; then
+		local SRC="dircolors/${SCHEME}"
+	fi
+
+	color_scheme "dircolors" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
 }
 
 tmux() {
-	local LINK_NAME="$SELF_DIR/tmux/.colors.tmux.conf"
-	nullify "$LINK_NAME" || return 1
-
 	local LINK_NAME_T="$SELF_DIR/tmux/.terminal.tmux.conf"
-	nullify "$LINK_NAME_T" || return 1
+	rmlink_safe "$LINK_NAME_T" || return 1
 
 	case "$SCHEME" in
-		solarized-dark-256)
-			ln -vsf "256.tmux.conf" "$LINK_NAME_T"
-			;;
-		solarized-light-256)
-			echo "error: $SCHEME is not supported for tmux"
-			ln -vsf "256.tmux.conf" "$LINK_NAME_T"
+		solarized-dark-256 | solarized-light-256)
+			ln -vs "256.tmux.conf" "$LINK_NAME_T"
 			;;
 		*)
+			ln -vs /dev/null "$LINK_NAME_T"
 			;;
 	esac
 
+	local DIR="$SELF_DIR/tmux"
+	local SRC=""
+	local LINK_NAME=".colors.tmux.conf"
+
+	if [ "$SCHEME" != "solarized-light-256" ]; then
+		echo "error: $SCHEME is not supported for dircolors"
+	fi
+
 	if [ "$SCHEME" != "default" ]; then
 		local SRC="colors/${SCHEME}.tmux.conf"
-		if [ -f "$SELF_DIR/tmux/$SRC" ]; then
-			ln -vsf "$SRC" "$LINK_NAME"
-			echo "tmux: $SCHEME"
-		else
-			echo "error: no such file: $SELF_DIR/tmux/$SRC"
-		fi
-	else
-		echo "tmux: default"
 	fi
+
+	color_scheme "tmux" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
 }
 
 vim() {
-	local LINK_NAME="$SELF_DIR/vim/.colors.vim"
-	nullify $LINK_NAME || return 1
+	local DIR="$SELF_DIR/vim"
+	local SRC=""
+	local LINK_NAME=".colors.vim"
 
 	if [ "$SCHEME" != "default" ]; then
 		local SRC="colors/${SCHEME}.vim"
-		if [ -f "$SELF_DIR/vim/$SRC" ]; then
-			ln -vsf "$SRC" "$LINK_NAME"
-			echo "vim: $SCHEME"
-		else
-			echo "error: no such file: $SELF_DIR/vim/$SRC"
-		fi
-	else
-		echo "vim: default"
 	fi
+
+	color_scheme "vim" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
 }
 
 mutt() {
-	local LINK_NAME="$SELF_DIR/mutt/.colors.mutt"
-	nullify $LINK_NAME || return 1
+	local DIR="$SELF_DIR/mutt"
+	local SRC=""
+	local LINK_NAME=".colors.mutt"
 
 	if [ "$SCHEME" != "default" ]; then
-		local SRC="mutt-colors-solarized/mutt-colors-${SCHEME}.muttrc"
-		if [ -f "$SELF_DIR/mutt/$SRC" ]; then
-			ln -vsf "$SRC" "$LINK_NAME"
-			echo "mutt: $SCHEME"
-		else
-			echo "error: no such file: $SELF_DIR/mutt/$SRC"
-		fi
-	else
-		echo "mutt: default"
+		SRC="mutt-colors-solarized/mutt-colors-${SCHEME}.muttrc"
 	fi
+
+	color_scheme "mutt" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
 }
 
 mutt
