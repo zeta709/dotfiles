@@ -1,69 +1,52 @@
 #!/bin/bash
 
-# myln() usage
-# myln "$TARGET" "$LINKNAME"
-# NOTE: use double quotation mark
-myln() {
-	echo "Info: trying to make link $2 to $1"
-	ln -vis "$1" "$2"
-	echo
-}
-
-# echo "source $BASERC" >> "$RC"
+# usage: source_rc "$BASERC" "$RC"
 source_rc() {
-	BASERC="$1"
-	RC="$2"
-	touch "$RC"
-	if ! grep -Fq "source $BASERC" "$RC"; then
+	local BASERC="$1"
+	local RC="$2"
+	[ -f "$RC" ] || touch "$RC"
+	if ! grep -q "source $BASERC" "$RC"; then
 		echo "source $BASERC" >> "$RC"
+		echo >> "$RC"
 	fi
-	echo >> "$RC"
 }
 
 SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 
 # zsh
-source_rc "~/.dotfiles/zsh/dot.zsh" "$HOME/.zshrc"
+source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 
 # vim
-mkdir -p "$HOME/.vim/autoload"
-myln "$SELF_DIR/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
-if ! grep "call plug#begin" "$HOME/.vimrc"; then
-	cat <<- 'EOF' >> "$HOME/.vimrc"
+[ -f "$HOME/.vimrc" ] || touch "$HOME/.vimrc"
+if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
+	mkdir -p "$HOME/.vim/autoload"
+	ln -vis "$SELF_DIR/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
+fi
+if ! grep -q "call plug#begin" "$HOME/.vimrc"; then
+	cat <<- EOF >> "$HOME/.vimrc"
 		"" vim plugins
-		call plug#begin('~/.vim/plugged')
-		source ~/.dotfiles/vim/dot-plugins.vim
+		call plug#begin('$HOME/.vim/plugged')
+		source $SELF_DIRQ/vim/dot-plugins.vim
 		call plug#end()
 
 	EOF
 fi
-source_rc "~/.dotfiles/vim/dot.vim" "$HOME/.vimrc"
+source_rc "$SELF_DIRQ/vim/dot.vim" "$HOME/.vimrc"
 
 # gdb
-source_rc "~/.dotfiles/gdb/dot.gdb" "$HOME/.gdbinit"
+source_rc "$SELF_DIRQ/gdb/dot.gdb" "$HOME/.gdbinit"
 
 # git
-git config --global --add include.path "~/.dotfiles/git/dot.gitconfig"
+DOTGITCONFIG=`git config --global --get-all include.path "^$SELF_DIR/git/dot.gitconfig$"`
+if [ -z "$DOTGITCONFIG" ]; then
+	git config --global --add include.path "$SELF_DIR/git/dot.gitconfig"
+fi
 
 # tmux
-source_rc "~/.dotfiles/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
+source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
 
 # etc.
-myln "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
-myln "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
+#ln -vis "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
+#ln -vis "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
 
-# yes/no
-#while true; do # yes/no function: http://stackoverflow.com/questions/226703
-#        read -rp "yes or no? "
-#        case $REPLY in
-#                [Yy] | [Yy][Ee][Ss])
-#                        break
-#                        ;;
-#                [Nn] | [Nn][Oo])
-#                        break
-#                        ;;
-#                *)
-#			echo "Answer yes or no."
-#                        ;;
-#        esac
-#done
