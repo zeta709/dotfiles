@@ -107,13 +107,6 @@ au BufRead,BufNewFile *.md setlocal filetype=markdown
 "hi def link mySpaceError Error
 "hi def link myLongLine Error
 
-"" colorscheme
-"hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-"color desert
-if filereadable(glob("~/.dotfiles/vim/.colors.vim"))
-	source ~/.dotfiles/vim/.colors.vim
-endif
-
 "" cscope
 "set csprg=/usr/bin/cscope
 set cst

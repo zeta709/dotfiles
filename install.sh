@@ -7,7 +7,6 @@ source_rc() {
 	[ -f "$RC" ] || touch "$RC"
 	if ! grep -q "source $BASERC" "$RC"; then
 		echo "source $BASERC" >> "$RC"
-		echo >> "$RC"
 	fi
 }
 
@@ -15,7 +14,9 @@ SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 
 # zsh
+ln -vis /dev/null "$SELF_DIR/sh/.term.sh"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
+source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
 
 # vim
 [ -f "$HOME/.vimrc" ] || touch "$HOME/.vimrc"
@@ -23,16 +24,20 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 	mkdir -p "$HOME/.vim/autoload"
 	ln -vis "$SELF_DIR/vim/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
 fi
-if ! grep -q "call plug#begin" "$HOME/.vimrc"; then
+STR="\" dotfiles are installed"
+if ! grep -q "$STR" "$HOME/.vimrc"; then
+	ln -vis /dev/null "$SELF_DIR/vim/.colors.vim"
 	cat <<- EOF >> "$HOME/.vimrc"
-		"" vim plugins
 		call plug#begin('$HOME/.vim/plugged')
 		source $SELF_DIRQ/vim/dot-plugins.vim
 		call plug#end()
 
+		source $SELF_DIRQ/vim/dot.vim
+		source $SELF_DIRQ/vim/.colors.vim
+		$STR
+
 	EOF
 fi
-source_rc "$SELF_DIRQ/vim/dot.vim" "$HOME/.vimrc"
 
 # gdb
 source_rc "$SELF_DIRQ/gdb/dot.gdb" "$HOME/.gdbinit"
@@ -44,7 +49,11 @@ if [ -z "$DOTGITCONFIG" ]; then
 fi
 
 # tmux
+ln -vis /dev/null "$SELF_DIR/tmux/.colors.tmux.conf"
+ln -vis /dev/null "$SELF_DIR/tmux/.terminal.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
+source_rc "$SELF_DIRQ/tmux/.colors.tmux.conf" "$HOME/.tmux.conf"
+source_rc "$SELF_DIRQ/tmux/.terminal.tmux.conf" "$HOME/.tmux.conf"
 
 # etc.
 #ln -vis "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
