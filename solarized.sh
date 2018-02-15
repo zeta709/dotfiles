@@ -49,8 +49,6 @@ mydircolors() {
 
 	if [ -L $LINK_NAME ]; then
 		rm -f $LINK_NAME
-	else
-		echo "error: $LINK_NAME is not symbolic link"
 	fi
 
 	case "$SCHEME" in
@@ -154,19 +152,17 @@ tmux() {
 vim() {
 	local VIM_SOLARIZED_DIR="$HOME/.vim/plugged/vim-colors-solarized"
 	local SRC=""
-	local LINK_NAME="$SELF_DIR/vim/.vim-colors.vimrc"
+	local LINK_NAME="$SELF_DIR/vim/.colors.vim"
 
 	if [ -L $LINK_NAME ]; then
 		rm -f $LINK_NAME
-	else
-		echo "error: $LINK_NAME is not symbolic link"
 	fi
 
 	case "$SCHEME" in
 		unsolarized)
 			;;
 		*)
-			SRC="vim-colors-solarized-${SCHEME}.vimrc"
+			SRC="colors/solarized-${SCHEME}.vim"
 			;;
 	esac
 

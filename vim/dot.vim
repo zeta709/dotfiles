@@ -110,8 +110,8 @@ au BufRead,BufNewFile *.md setlocal filetype=markdown
 "" colorscheme
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 "color desert
-if filereadable(glob("~/.dotfiles/vim/.vim-colors.vimrc"))
-	source ~/.dotfiles/vim/.vim-colors.vimrc
+if filereadable(glob("~/.dotfiles/vim/.colors.vim"))
+	source ~/.dotfiles/vim/.colors.vim
 endif
 
 "" cscope
