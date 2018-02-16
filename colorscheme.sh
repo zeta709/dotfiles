@@ -74,7 +74,7 @@ mydircolors() {
 	local SRC=""
 	local LINK_NAME=".dircolors"
 
-	if [ "$SCHEME" != "solarized-light-256" ]; then
+	if [ "$SCHEME" = "solarized-light-256" ]; then
 		echo "error: $SCHEME is not supported for dircolors"
 	fi
 
@@ -102,8 +102,8 @@ tmux() {
 	local SRC=""
 	local LINK_NAME=".colors.tmux.conf"
 
-	if [ "$SCHEME" != "solarized-light-256" ]; then
-		echo "error: $SCHEME is not supported for dircolors"
+	if [ "$SCHEME" = "solarized-light-256" ]; then
+		echo "error: $SCHEME is not supported for tmux"
 	fi
 
 	if [ "$SCHEME" != "default" ]; then
