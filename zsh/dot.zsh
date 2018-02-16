@@ -1,11 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.dotfiles/zsh/oh-my-zsh
+[[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
 
-#
-ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
+# Path to your oh-my-zsh installation.
+export ZSH="$DOTFILES/zsh/oh-my-zsh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -52,7 +51,7 @@ DISABLE_CORRECTION="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM="$DOTFILES/zsh/custom"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -99,7 +98,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 
 # dircolors
-[ -r ~/.dotfiles/.dircolors ] && eval `dircolors ~/.dotfiles/.dircolors`
+[ -r "$DOTFILES/.dircolors" ] && eval `dircolors "$DOTFILES/.dircolors"`
 
 #unsetopt autonamedirs
 unsetopt cdablevars
@@ -131,4 +130,4 @@ mdserver() {
   (cd "$TMP" && python3 -m http.server)
 }
 
-source $HOME/.dotfiles/z/z.sh
+source "$DOTFILES/z/z.sh"
