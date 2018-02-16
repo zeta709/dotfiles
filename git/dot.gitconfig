@@ -25,7 +25,11 @@
 [alias]
 	ci = commit
 	co = checkout
-	myclean = clean -fdx -e "*.bk" -e "*.orig" -e "*.my" -e ".gdb_history" -e "cscope.*"
+	st = status
+	clean-all = clean -fdx -e "*.bk" -e "*.bak" -e "*.orig" -e "*.my" -e ".gdb_history" -e "cscope.*" -e "ctags"
+	clean-ign = clean -fX
+	grep-cnt = grep --count
+	grep-grp = grep --break --heading --line-number
 	logs = log --decorate --pretty=my --date=short
 	unmerged-s = log --cherry-pick --pretty=my2 --date=short --no-merges --right-only
 	unmerged-x = log --cherry-pick --pretty=my3 --date=short --no-merges --right-only
