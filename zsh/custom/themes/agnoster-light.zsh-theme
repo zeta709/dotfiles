@@ -228,7 +228,7 @@ prompt_status() {
 build_prompt() {
   RETVAL=$?
   prompt_status
-  prompt_container
+  #prompt_container
   prompt_virtualenv
   prompt_context
   prompt_dir
