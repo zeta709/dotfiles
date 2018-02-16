@@ -1,4 +1,4 @@
-## vim:syntax=gitconfig
+## vim:filetype=gitconfig
 [core]
 	editor = vim
 [push]

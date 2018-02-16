@@ -1,3 +1,4 @@
+## vim:filetype=muttrc
 # Mutt & Maildir Mini-HOWTO
 # http://www.elho.net/mutt/maildir/
 set mbox_type=Maildir
