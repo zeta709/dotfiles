@@ -28,11 +28,13 @@ STR="\" dotfiles are installed"
 if ! grep -q "$STR" "$HOME/.vimrc"; then
 	ln -vis /dev/null "$SELF_DIR/vim/.colors.vim"
 	cat <<- EOF >> "$HOME/.vimrc"
+		source $SELF_DIRQ/vim/dot.vim
+		source $SELF_DIRQ/vim/gui.vim
+
 		call plug#begin('$HOME/.vim/plugged')
 		source $SELF_DIRQ/vim/dot-plugins.vim
 		call plug#end()
 
-		source $SELF_DIRQ/vim/dot.vim
 		source $SELF_DIRQ/vim/.colors.vim
 		$STR
 
