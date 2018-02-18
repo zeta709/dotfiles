@@ -88,8 +88,6 @@ au filetype python setlocal expandtab
 au filetype python setlocal tabstop=8
 au filetype python setlocal shiftwidth=4
 au filetype python setlocal softtabstop=4
-"" Install follwining vimrc
-"" https://github.com/hynek/vim-python-pep8-indent
 
 "" for Markdown
 au BufRead,BufNewFile *.md setlocal filetype=markdown
