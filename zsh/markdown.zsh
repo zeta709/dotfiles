@@ -14,7 +14,7 @@ mdserver() {
     if [ ! -r markdown.css ]; then
       curl -O "https://guides.github.com/components/primer/markdown.css" || return
     fi
-    sed 's/.markdown-//g' markdown.css > "$CSS" || return
+    sed 's/.markdown-//g; s/overflow *: *hidden *;/overflow: auto;/g' markdown.css > "$CSS" || return
     )
   fi
 
