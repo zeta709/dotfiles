@@ -45,7 +45,7 @@ fi
 source_rc "$SELF_DIRQ/gdb/dot.gdb" "$HOME/.gdbinit"
 
 # git
-DOTGITCONFIG=`git config --global --get-all include.path "^$SELF_DIR/git/dot.gitconfig$"`
+DOTGITCONFIG="$(git config --global --get-all include.path "^$SELF_DIR/git/dot.gitconfig$")"
 if [ -z "$DOTGITCONFIG" ]; then
 	git config --global --add include.path "$SELF_DIR/git/dot.gitconfig"
 fi

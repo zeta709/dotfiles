@@ -39,7 +39,7 @@ color_scheme() {
 
 	local SRC_PATH="$DIR/$SRC"
 	local LINK_PATH="$DIR/$LINK_NAME"
-	rmlink_safe $LINK_PATH || return 1
+	rmlink_safe "$LINK_PATH" || return 1
 	if [ -n "$SRC" ]; then
 		if [ -f "$SRC_PATH" ]; then
 			ln -vs "$SRC" "$LINK_PATH"

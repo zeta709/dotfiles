@@ -19,6 +19,6 @@ mdserver() {
   fi
 
   local OPT="-f markdown_github -t html5 --self-contained --standalone"
-  pandoc ${=OPT} --css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || return
+  pandoc "${=OPT}" --css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || return
   (cd "$TMP" && python3 -m http.server)
 }

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-if [ -n "$DISPLAY" -a "$TERM" = "xterm" ]; then
+if [ -n "$DISPLAY" ] && [ "$TERM" = "xterm" ]; then
 	export TERM="xterm-256color"
 fi

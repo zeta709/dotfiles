@@ -15,14 +15,14 @@ load_oh-my-zsh() {
 	ZSH_CUSTOM="$DOTFILES/zsh/custom"
 	#plugins=()
 
-	source $ZSH/oh-my-zsh.sh
+	source "$ZSH/oh-my-zsh.sh"
 }
 
 load_oh-my-zsh && unset -f load_oh-my-zsh
 source "$DOTFILES/zsh/markdown.zsh"
 source "$DOTFILES/z/z.sh"
 
-[[ -r "$DOTFILES/.dircolors" ]] && eval `dircolors "$DOTFILES/.dircolors"`
+[[ -r "$DOTFILES/.dircolors" ]] && eval "$(dircolors "$DOTFILES/.dircolors")"
 
 export PATH="$HOME/bin:$PATH"
 export LANG=en_US.UTF-8
@@ -35,8 +35,8 @@ alias mv="mv -i"
 alias server="python3 -m http.server" # simple server
 
 fts=(c cc cpp h hpp md txt)
-for ft in $fts; do
-	alias -s $ft=$EDITOR;
+for ft in "${fts[@]}"; do
+	alias -s "$ft"='$EDITOR'
 done
 unset fts
 
