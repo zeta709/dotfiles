@@ -37,9 +37,6 @@ let g:clang_format#enable_fallback_style = 0
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
-"" FIXME: vim-python-pep8-indent seems to have bugs
-"Plug 'Vimjas/vim-python-pep8-indent'
-
 "" FIXME: syntastic works but has minor bugs in terminal
 "Plug 'scrooloose/syntastic'
 "set statusline+=%#warningmsg#
