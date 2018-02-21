@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 
 rm -f cscope.files cscope.out cscope.in.out cscope.po.out
 find . -type f \( -name '*.[chsS]' -o -name '*.cc' -o -name '*.cpp' \) -exec realpath {} \; > cscope.files

@@ -19,7 +19,6 @@ load_oh-my-zsh() {
 }
 
 load_oh-my-zsh && unset -f load_oh-my-zsh
-source "$DOTFILES/zsh/markdown.zsh"
 source "$DOTFILES/z/z.sh"
 
 [[ -r "$DOTFILES/.dircolors" ]] && eval "$(dircolors "$DOTFILES/.dircolors")"

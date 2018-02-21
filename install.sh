@@ -57,6 +57,10 @@ source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/.colors.tmux.conf" "$HOME/.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/.terminal.tmux.conf" "$HOME/.tmux.conf"
 
+# bin
+mkdir -p "$HOME/bin"
+find "$SELF_DIR/bin" -type f -executable -exec ln -vis -t "$HOME/bin" "{}" \;
+
 # etc.
 #ln -vis "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 #ln -vis "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"

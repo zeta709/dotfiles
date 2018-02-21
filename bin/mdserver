@@ -1,0 +1,25 @@
+#!/bin/sh
+## simple server for markdown
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: mdserver file.md"
+	exit 1
+fi
+
+TMP="$HOME/tmp"
+CSS_IN="markdown.css"
+CSS="markdown_pandoc.css"
+mkdir -p "$TMP" || exit 1
+if [ ! -f "$TMP/$CSS" ]; then
+	if [ ! -f "$CSS_IN" ]; then
+		curl "https://guides.github.com/components/primer/markdown.css" \
+			-o "$TMP/$CSS_IN" || exit 1
+	fi
+	sed 's/.markdown-//g; s/overflow *: *hidden *;/overflow: auto;/g' \
+		"$TMP/$CSS_IN" > "$TMP/$CSS" || exit 1
+fi
+
+pandoc -f "markdown_github" -t "html5" --self-contained --standalone \
+	--css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || exit 1
+cd "$TMP" || exit 1
+python3 -m http.server || exit 1
