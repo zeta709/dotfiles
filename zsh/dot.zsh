@@ -32,6 +32,7 @@ alias ls="ls --color=auto"
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
+alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
 
 fts=(c cc cpp h hpp md txt)
