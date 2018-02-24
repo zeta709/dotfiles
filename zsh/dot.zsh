@@ -35,7 +35,7 @@ my_git_info() {
 	##   - no result if the repo has no commit
 	local MY_GIT_DIR_NEW="$(git rev-parse --git-dir 2>/dev/null)"
 	if [[ -n "$MY_GIT_DIR_NEW" ]]; then
-		MY_GIT_DIR_NEW="$(realpath $MY_GIT_DIR_NEW)"
+		MY_GIT_DIR_NEW="$(realpath "$MY_GIT_DIR_NEW")"
 		local MY_GIT_FILE_STAMP="$(stat -c "%Y" "$MY_GIT_DIR_NEW/HEAD")"
 		if [[ -z "$MY_GIT_DIR" ]] || [[ "$MY_GIT_DIR" != "$MY_GIT_DIR_NEW" ]] \
 			|| [[ -z "$MY_GIT_STAMP" ]] || [[ "$MY_GIT_STAMP" -lt "$MY_GIT_FILE_STAMP" ]]; then
@@ -54,7 +54,10 @@ my_git_info() {
 		MY_GIT_STAMP=""
 	fi
 }
-precmd_functions=($precmd_functions my_git_info)
+
+if [[ -z "${precmd_functions[(r)my_git_info]}" ]]; then
+	precmd_functions+=(my_git_info)
+fi
 
 PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO%($(($COLUMNS/2))l.'$'\n.)%F{blue}%(!.#.$)%f '
 
