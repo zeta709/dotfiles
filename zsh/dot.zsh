@@ -22,15 +22,14 @@ load_oh-my-zsh() {
 load_oh-my-zsh && unset -f load_oh-my-zsh
 source "$DOTFILES/z/z.sh"
 
-if [[ -z "${fpath[(r)$DOTFILES/zsh/functions]}" ]]; then
-	fpath=("$DOTFILES/zsh/functions" $fpath)
-fi
+# typeset -U array: keep unique elements
+typeset -U fpath precmd_functions preexec_functions
+fpath=("$DOTFILES/zsh/functions" "${fpath[@]}")
 autoload -Uz my_git_info
-if [[ -z "${precmd_functions[(r)my_git_info]}" ]]; then
-	precmd_functions+=(my_git_info)
-fi
+precmd_functions+=(my_git_info)
 
-PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO%($(($COLUMNS/2))l.'$'\n.)%F{blue}%(!.#.$)%f '
+PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO'
+PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
 
 export PATH="$HOME/bin:$PATH"
 export LANG=en_US.UTF-8
