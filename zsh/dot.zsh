@@ -1,40 +1,15 @@
+## temporary variables
 [[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
+OMZ="$DOTFILES/zsh/oh-my-zsh" ## TODO: remove OMZ dependency
 
-load_oh-my-zsh() {
-	## TODO: remove oh-my-zsh
-	## ref: oh-my-zsh/templates/zshrc.zsh-template
-
-	# some variables should be non-local since they are used in funtions
-	ZSH="$DOTFILES/zsh/oh-my-zsh"
-
-	[[ -z "${ZSH_THEME+x}" ]] && local ZSH_THEME=""
-	local HYPHEN_INSENSITIVE="true"
-	local DISABLE_AUTO_UPDATE="true"
-	DISABLE_UNTRACKED_FILES_DIRTY="true"
-	local HIST_STAMPS="yyyy-mm-dd"
-	ZSH_CUSTOM="$DOTFILES/zsh/custom"
-	#plugins=()
-
-	source "$ZSH/oh-my-zsh.sh"
-}
-
-[[ -r "$DOTFILES/.dircolors" ]] && eval "$(dircolors "$DOTFILES/.dircolors")"
-load_oh-my-zsh && unset -f load_oh-my-zsh
-source "$DOTFILES/z/z.sh"
-
-# typeset -U array: keep unique elements
-typeset -U fpath precmd_functions preexec_functions
-fpath=("$DOTFILES/zsh/functions" "${fpath[@]}")
-autoload -Uz my_git_info
-precmd_functions+=(my_git_info)
-
-PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO'
-PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
-
+## environment variables (not zsh-specific)
 export PATH="$HOME/bin:$PATH"
-export LANG=en_US.UTF-8
+export LANG="en_US.UTF-8"
 export GDBHISTFILE="$HOME/.gdb_history"
+[[ -r "$DOTFILES/.dircolors" ]] && eval "$(dircolors "$DOTFILES/.dircolors")"
 
+## common aliases (not zsh-specific)
+alias grep='grep --color=auto --exclude-dir={.bzr,.git,.hg,.svn,CVS}'
 alias vi="vim"
 alias ls="ls --color=auto"
 alias rm="rm -i"
@@ -43,6 +18,7 @@ alias mv="mv -i"
 alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
 
+## suffix aliases
 fts=(c cc cpp h hpp md txt)
 for ft in "${fts[@]}"; do
 	alias -s "$ft"='$EDITOR'
@@ -50,5 +26,86 @@ done
 unset fts
 unset ft
 
-#unsetopt autonamedirs
-unsetopt cdablevars
+## zsh variables
+## typeset -U array: keep unique elements
+typeset -Ug fpath precmd_functions preexec_functions
+fpath=("$DOTFILES/zsh/functions" "${fpath[@]}")
+
+## directory options
+setopt auto_cd
+setopt auto_pushd
+#setopt pushd_minus # FIXME: what's this?
+
+## directory aliases
+alias ll='ls -lah'
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+## directory plugins
+source "$DOTFILES/z/z.sh"
+
+## completion modules
+zmodload -i zsh/complist
+
+## completion options
+#setopt always_to_end # FIXME: what's this?
+setopt complete_in_word
+
+## completion zstyles
+## zstyle ':completion:function:completer:command:argument:tag'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'l:|{a-zA-Z-_}={A-Za-z_-}' # FIXME
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+
+## completion init
+autoload -Uz compinit
+compinit -i -d "${HOME}/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+
+## expansion and globbing options
+setopt extended_glob
+
+## history options
+setopt extended_history
+#setopt hist_expire_dups_first
+#setopt hist_fcntl_lock # FIXME: need to be tested
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt share_history
+
+## history parameters
+HISTFILE="$HOME/.zsh_history"
+HISTORY_IGNORE="(ls|ll|ls -[laAh1]#|cd|cd -|cd .##(/.#)#)"
+HISTSIZE=10000
+SAVEHIST=10000
+
+## history aliases
+alias history='history -i'
+
+## input/output options
+setopt interactive_comments
+
+## job control options
+setopt long_list_jobs
+
+## prompting options
+setopt prompt_subst
+
+## prompting parameters
+autoload -Uz my_git_info
+precmd_functions+=(my_git_info)
+PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO'
+PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
+
+## scripts and functions options
+
+## misc
+source "$OMZ/lib/key-bindings.zsh"
+autoload -Uz colors && colors
+
+## unset temporary variables
+unset DOTFILES OMZ
