@@ -33,6 +33,7 @@ PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
 
 export PATH="$HOME/bin:$PATH"
 export LANG=en_US.UTF-8
+export GDBHISTFILE="$HOME/.gdb_history"
 
 alias vi="vim"
 alias ls="ls --color=auto"
