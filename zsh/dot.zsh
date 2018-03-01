@@ -12,19 +12,30 @@ export GDBHISTFILE="$HOME/.gdb_history"
 alias grep='grep --color=auto --exclude-dir={.bzr,.git,.hg,.svn,CVS}'
 alias vi="vim"
 alias ls="ls --color=auto"
+alias ll='ls -lah'
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
 
+## zsh command aliases
+alias history='history -i'
+
 ## suffix aliases
-fts=(c cc cpp h hpp md txt)
-for ft in "${fts[@]}"; do
-	alias -s "$ft"='$EDITOR'
-done
-unset fts
-unset ft
+function {
+	local fts=(c cc cpp h hpp md txt)
+	local ft
+	for ft in "${fts[@]}"; do
+		alias -s "$ft"='$EDITOR'
+	done
+}
+
+## global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
 
 ## zsh variables
 ## typeset -U array: keep unique elements
@@ -35,13 +46,6 @@ fpath=("$DOTFILES/zsh/functions" "${fpath[@]}")
 setopt auto_cd
 setopt auto_pushd
 #setopt pushd_minus # FIXME: what's this?
-
-## directory aliases
-alias ll='ls -lah'
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g ......='../../../../..'
 
 ## directory plugins
 source "$DOTFILES/z/z.sh"
@@ -83,9 +87,6 @@ HISTORY_IGNORE="(ls|ll|ls -[laAh1]#|cd|cd -|cd .##(/.#)#)"
 HISTSIZE=10000
 SAVEHIST=10000
 
-## history aliases
-alias history='history -i'
-
 ## input/output options
 setopt interactive_comments
 
@@ -103,8 +104,10 @@ PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
 
 ## scripts and functions options
 
-## misc
+## bindkey settings
 source "$OMZ/lib/key-bindings.zsh"
+
+## misc
 autoload -Uz colors && colors
 
 ## unset temporary variables
