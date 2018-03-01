@@ -1,6 +1,5 @@
 ## temporary variables
 [[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
-OMZ="$DOTFILES/zsh/oh-my-zsh" ## TODO: remove OMZ dependency
 
 ## environment variables (not zsh-specific)
 export PATH="$HOME/bin:$PATH"
@@ -105,10 +104,10 @@ PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
 ## scripts and functions options
 
 ## bindkey settings
-source "$OMZ/lib/key-bindings.zsh"
+source "$DOTFILES/zsh/bindkey.zsh"
 
 ## misc
 autoload -Uz colors && colors
 
 ## unset temporary variables
-unset DOTFILES OMZ
+unset DOTFILES
