@@ -7,9 +7,6 @@
 [submodule "dircolors-solarized"]
 	path = dircolors/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "oh-my-zsh"]
-	path = zsh/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
