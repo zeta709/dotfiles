@@ -1,5 +1,5 @@
 ## temporary variables
-[[ -z "$DOTFILES" ]] && DOTFILES="$HOME/.dotfiles"
+readonly DOTDIR="${${(%):-%x}:A:h}/.."
 
 ## environment variables (not zsh-specific)
 export PATH="$HOME/bin:$PATH"
@@ -39,7 +39,7 @@ alias -g ......='../../../../..'
 ## zsh variables
 ## typeset -U array: keep unique elements
 typeset -Ug fpath precmd_functions preexec_functions
-fpath=("$DOTFILES/zsh/functions" "${fpath[@]}")
+fpath=("$DOTDIR/zsh/functions" "${fpath[@]}")
 
 ## directory options
 setopt auto_cd
@@ -47,7 +47,7 @@ setopt auto_pushd
 #setopt pushd_minus # FIXME: what's this?
 
 ## directory plugins
-source "$DOTFILES/z/z.sh"
+source "$DOTDIR/z/z.sh"
 
 ## completion modules
 zmodload -i zsh/complist
@@ -104,10 +104,11 @@ PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
 ## scripts and functions options
 
 ## bindkey settings
-source "$DOTFILES/zsh/bindkey.zsh"
+source "$DOTDIR/zsh/bindkey.zsh"
 
 ## misc
 autoload -Uz colors && colors
 
 ## unset temporary variables
-unset DOTFILES
+typeset +r DOTDIR
+unset DOTDIR
