@@ -18,6 +18,10 @@ ln -vis /dev/null "$SELF_DIR/sh/.term.sh"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
 
+# dircolors
+ln -vis "$SELF_DIR/.dircolors" "$HOME/.dircolors"
+ln -vis /dev/null "$SELF_DIR/.dircolors"
+
 # vim
 [ -f "$HOME/.vimrc" ] || touch "$HOME/.vimrc"
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then

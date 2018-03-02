@@ -5,7 +5,7 @@
 export PATH="$HOME/bin:$PATH"
 export LANG="en_US.UTF-8"
 export GDBHISTFILE="$HOME/.gdb_history"
-[[ -r "$DOTFILES/.dircolors" ]] && eval "$(dircolors "$DOTFILES/.dircolors")"
+[[ -r "$HOME/.dircolors" ]] && eval "$(dircolors "$HOME/.dircolors")"
 
 ## common aliases (not zsh-specific)
 alias grep='grep --color=auto --exclude-dir={.bzr,.git,.hg,.svn,CVS}'
