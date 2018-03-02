@@ -1,5 +1,5 @@
 ## temporary variables
-readonly DOTDIR="${${(%):-%x}:A:h}/.."
+readonly DOTDIR="${${${(%):-%x}:A:h}%/*}" # see self-path repo
 
 ## environment variables (not zsh-specific)
 export PATH="$HOME/bin:$PATH"
