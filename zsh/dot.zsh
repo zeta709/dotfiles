@@ -59,7 +59,9 @@ setopt complete_in_word
 ## completion zstyles
 ## zstyle ':completion:function:completer:command:argument:tag'
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'l:|{a-zA-Z-_}={A-Za-z_-}' # FIXME
+zstyle ':completion:*' matcher-list \
+	'' 'm:{a-z-}={A-Z_}' 'm:{A-Z_}={a-z-}' 'm:{a-zA-Z-_}={A-Za-z_-}' \
+	'r:|.=*' 'l:|=* r:|.=*'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
