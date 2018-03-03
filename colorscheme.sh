@@ -23,14 +23,27 @@ color_scheme() {
 
 	local SRC_PATH="$DIR/$SRC"
 	local LINK_PATH="$DIR/$LINK_NAME"
-	rmlink_safe "$LINK_PATH" || return 1
 	if [[ -n "$SRC" ]] && [[ -f "$SRC_PATH" ]]; then
+		rmlink_safe "$LINK_PATH" || return 1
 		ln -vs "$SRC" "$LINK_PATH"
 		echo "$MODULE: $SCHEME"
 	else
 		if [[ "$SCHEME" != "default" ]]; then
-			echo "$MODULE: error: no such file: $SRC_PATH"
+			echo "$MODULE: error: no such color scheme: $SCHEME"
+			echo "$MODULE: do you want to keep the current color scheme?"
+			local ANS
+			select ANS in "keep" "remove"; do
+				case "$ANS" in
+					"keep")
+						return
+						;;
+					"remove")
+						break
+						;;
+				esac
+			done
 		fi
+		rmlink_safe "$LINK_PATH" || return 1
 		ln -vs /dev/null "$LINK_PATH"
 		echo "$MODULE: (null)"
 	fi
@@ -87,14 +100,15 @@ main() {
 	SELF_DIR="$(unset CDPATH && cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	local SCHEME
 	local IS256="false"
+	local COLORSDIR="colors"
 
 	echo "Choose color scheme:"
-	select ans in "solarized-dark-16" "solarized-light-16" \
-		"solarized-dark-256" "solarized-light-256" "default"; do
-		if [[ -n "$ans" ]]; then
-			SCHEME="$ans"
-			break;
-		fi
+	local SCHEMESET=(
+		"solarized-dark-16" "solarized-light-16"
+		"solarized-dark-256" "solarized-light-256"
+		"default")
+	select SCHEME in "${SCHEMESET[@]}"; do
+		[[ -n "$SCHEME" ]] && break
 	done
 
 	case "$SCHEME" in
@@ -113,7 +127,7 @@ main() {
 	mydircolors
 	mysh
 
-	echo "Info: source $LINK_NAME to apply the color scheme in this terminal"
+	echo "Info: source shell rc to apply the color scheme in this terminal"
 	echo "Info: you may change the color pallete of your terminal"
 }
 
