@@ -15,8 +15,10 @@ SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 
 # zsh
 ln -vis /dev/null "$SELF_DIR/sh/.term.sh"
+ln -vis /dev/null "$SELF_DIR/sh/.colors.sh"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
+source_rc "$SELF_DIRQ/sh/.colors.sh" "$HOME/.zshrc"
 
 # dircolors
 ln -vis "$SELF_DIR/.dircolors" "$HOME/.dircolors"

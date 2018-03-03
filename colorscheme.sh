@@ -95,28 +95,52 @@ mutt() {
 	color_scheme "mutt" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
 }
 
+prepare_base16() {
+	# WIP
+	[[ "$SCHEME" != "base16" ]] && return 1
+	local BASE16_SHELL_DIR="$HOME/base16-shell"
+	local BASE16_SET
+	local BASE16
+	BASE16_SET=($(find "$HOME/base16-shell/scripts" \
+		-name "*.sh" -exec basename {} .sh \;))
+	select BASE16 in "${BASE16_SET[@]}"; do
+		[[ -n "$BASE16" ]] && break
+	done
+	echo "colorscheme $BASE16" > "$SELF_DIR/vim/colors/$SCHEME.vim"
+	rmlink_safe "$SELF_DIR/sh/.colors.sh"
+	ln -s "$BASE16_SHELL_DIR/scripts/$BASE16.sh" "$SELF_DIR/sh/.colors.sh"
+	echo > "$SELF_DIR/dircolors/base16"
+	echo > "$SELF_DIR/mutt/colors/base16.muttrc"
+	echo > "$SELF_DIR/tmux/colors/base16.tmux.conf"
+	source "$BASE16_SHELL_DIR/scripts/$BASE16.sh"
+}
+
 main() {
 	local SELF_DIR
 	SELF_DIR="$(unset CDPATH && cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	local SCHEME
 	local IS256="false"
-	local COLORSDIR="colors"
 
 	echo "Choose color scheme:"
 	local SCHEMESET=(
 		"solarized-dark-16" "solarized-light-16"
 		"solarized-dark-256" "solarized-light-256"
-		"default")
+		"base16" "default")
 	select SCHEME in "${SCHEMESET[@]}"; do
 		[[ -n "$SCHEME" ]] && break
 	done
 
+	rmlink_safe "$SELF_DIR/sh/.colors.sh"
+	ln -s /dev/null "$SELF_DIR/sh/.colors.sh"
 	case "$SCHEME" in
 		solarized-light-256)
 			echo "error: $SCHEME is not supported for tmux and dircolors"
 			;& # fall-through
 		solarized-dark-256)
 			IS256="true"
+			;;
+		base16)
+			prepare_base16
 			;;
 	esac
 
