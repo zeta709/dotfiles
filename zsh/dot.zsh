@@ -102,6 +102,7 @@ autoload -Uz my_git_info
 precmd_functions+=(my_git_info)
 PS1='%(?..%F{red}%? )%(!.%F{red}.%F{green}%n@)%m %F{blue}%~ $MY_GIT_INFO'
 PS1+=$'%($(($COLUMNS/2))l.\n.)%F{blue}%(!.#.$)%f '
+RPS1="%F{green}%T%f"
 
 ## scripts and functions options
 
