@@ -34,7 +34,7 @@ Add or edit the data of multi-string value for your font as follows:
 SEGUISYM.TTF,Segoe UI Symbol
 ```
 
-Registry example: <https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6>
+Registry example: <https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6>.
 
 See [1] for more detail about font linking.
 
@@ -61,7 +61,8 @@ $ ./solarized.sh
 
 ### putty
 
-Registry example: <https://gist.github.com/zeta709/edbbe8cfc50b3b81fb9ab8d64b2620bd>
+Registry example: <https://gist.github.com/zeta709/edbbe8cfc50b3b81fb9ab8d64b2620bd>.
+
 See also [2] and [3].
 
 ### Note for terminal users
