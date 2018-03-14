@@ -26,14 +26,17 @@ Type `:PlugInstall` in vim.
 
 ### Font configuration (Windows SSH client)
 
-Open regedit and go to `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink`.
-Add an multi-string value for your font and edit data.
+Open regedit and go to the key
+`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink`.
+Add or edit the data of multi-string value for your font as follows:
 
 ```
 SEGUISYM.TTF,Segoe UI Symbol
 ```
 
-[https://docs.microsoft.com/globalization/input/font-technology]
+Registry example: <https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6>
+
+See [1] for more detail about font linking.
 
 ### Windows
 
@@ -52,21 +55,18 @@ Applying solarized theme
 
 ```
 $ ./solarized.sh
-$ source ~/.bashrc
 ```
 
-* 256-color에서 16-color로 바꾼 경우 `export TERM=xterm`을 수작업으로 해줘야 한다.
-* dark-256의 경우 일부 환경에서 문제가 되는 것 같다.
+일부 환경에서 solarized-dark-256는 문제가 있을 수 있다.
 
 ### putty
 
-Putty 설정에 대해서는 다음 링크에서 다음 링크를 참고하라.
-[https://github.com/altercation/solarized/tree/master/putty-colors-solarized]
+Registry example: <https://gist.github.com/zeta709/edbbe8cfc50b3b81fb9ab8d64b2620bd>
+See also [2] and [3].
 
 ### Note for terminal users
 
-Read the following document.
-[https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users]
+Refer [4].
 
 설정 파일 구조
 --------------
@@ -136,3 +136,15 @@ call plug#end()
 source ~/.dotfiles/vim/dot.vim
 ```
 
+References
+----------
+
+1. https://docs.microsoft.com/ko-kr/globalization/input/font-technology#font-linking
+2. https://github.com/altercation/solarized/tree/master/putty-colors-solarized
+3. https://github.com/jblaine/solarized-and-modern-putty
+4. https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
+
+[1]: https://docs.microsoft.com/ko-kr/globalization/input/font-technology#font-linking
+[2]: https://github.com/altercation/solarized/tree/master/putty-colors-solarized
+[3]: https://github.com/jblaine/solarized-and-modern-putty
+[4]: https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
