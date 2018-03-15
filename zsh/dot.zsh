@@ -111,6 +111,7 @@ source "$DOTDIR/zsh/bindkey.zsh"
 
 ## misc
 autoload -Uz colors && colors
+autoload -Uz post-slack
 
 ## unset temporary variables
 typeset +r DOTDIR
