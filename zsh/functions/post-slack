@@ -2,9 +2,8 @@
 
 # A light-weight script for sending a message to Slack.
 #
-# Usage: post-slack "text" ["username" ["channel"]]
-#     Send text as username to channel
-#     Use qutation marks for each argument.
+# Usage: post-slack [-u username] [-c channel] [--] text
+# Send text to channel as username.
 #
 # This script is bash/zsh compatible.
 
@@ -12,9 +11,30 @@ post-slack() {
 	[[ "$#" -lt "1" ]] && return 1
 	[[ -z "$SLACK_WEBHOOK_URL" ]] && return 1
 
-	local text="$1"
-	local username="${2:-$(hostname -s)}"
-	local channel="$3"
+	local pos username channel text
+	pos=()
+	while [[ "$#" -gt "0" ]]; do
+		case "$1" in
+			-u)
+				username="$2"
+				shift 2
+				;;
+			-c)
+				channel="$2"
+				shift 2
+				;;
+			--)
+				shift
+				break
+				;;
+			*)
+				pos+=("$1")
+				shift
+				;;
+		esac
+	done
+	: "${username:=$(hostname -s)}"
+	text="${pos[*]}"
 
 	local payload="{"
 	payload+="\"text\": \"${text//\"/\\\"}\""
