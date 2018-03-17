@@ -20,5 +20,8 @@ if has("windows")
 	endif
 endif
 
-"set guifont=Dejavu\ Sans\ Mono:h10:cDEFAULT
-set guifont=Source\ Code\ Pro\ Semi-Bold\ 11
+if has("gui_gtk")
+	set guifont=Source\ Code\ Pro\ Semi-Bold\ 11,Dejavu\ Sans\ Mono\ 11
+elseif has("gui_win32")
+	set guifont=Source_Code_Pro_Semibold:h11:cANSI:qDEFAULT,Consolas:h11:cANSI:qDEFAULT
+endif
