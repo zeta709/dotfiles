@@ -1,27 +1,43 @@
 #!/bin/bash
 
 # A light-weight script for sending a message to Slack.
+# Author: zeta709@gmail.com
 #
-# Usage: post-slack [-u username] [-c channel] [--] text
-# Send text to channel as username.
+# Usage:
+#     post-slack [-u username] [-c channel] [--icon-emoji icon_emoji] [--] text
+# Example:
+#     post-slack -u "home" -c "#random" --icon-emoji ":slack:" -- "Hi!"
 #
 # This script is bash/zsh compatible.
+
+payload_add() {
+	local name="$1"
+	local value="${!name}"
+	[[ -n "$value" ]] && payload+=", \"$name\": \"${value//\"/\\\"}\""
+}
 
 post-slack() {
 	[[ "$#" -lt "1" ]] && return 1
 	[[ -z "$SLACK_WEBHOOK_URL" ]] && return 1
 
-	local pos username channel text
+	local pos username channel icon_emoji text
 	pos=()
 	while [[ "$#" -gt "0" ]]; do
 		case "$1" in
 			-u)
 				username="$2"
-				shift 2
+				shift
+				shift
 				;;
 			-c)
 				channel="$2"
-				shift 2
+				shift
+				shift
+				;;
+			--icon-emoji)
+				icon_emoji="$2"
+				shift
+				shift
 				;;
 			--)
 				shift
@@ -39,8 +55,9 @@ post-slack() {
 
 	local payload="{"
 	payload+="\"text\": \"${text//\"/\\\"}\""
-	[[ -n "$username" ]] && payload+=", \"username\": \"${username//\"/\\\"}\""
-	[[ -n "$channel" ]] && payload+=", \"channel\": \"${channel//\"/\\\"}\""
+	payload_add "username"
+	payload_add "channel"
+	payload_add "icon_emoji"
 	payload+="}"
 
 	curl -s -X POST -H 'Content-type: application/json' --data "$payload" \
