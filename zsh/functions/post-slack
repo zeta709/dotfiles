@@ -25,6 +25,7 @@ post-slack() {
 				;;
 			--)
 				shift
+				pos+=("$@")
 				break
 				;;
 			*)
