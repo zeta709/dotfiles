@@ -43,7 +43,7 @@ post-slack() {
 	[[ -n "$channel" ]] && payload+=", \"channel\": \"${channel//\"/\\\"}\""
 	payload+="}"
 
-	curl -X POST -H 'Content-type: application/json' --data "$payload" \
+	curl -s -X POST -H 'Content-type: application/json' --data "$payload" \
 		"$SLACK_WEBHOOK_URL"
 }
 
