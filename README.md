@@ -17,6 +17,7 @@ $ ./install.sh
 ### Get the latest submodules
 
 ```
+$ git submodule update --recursive --remote # >=git-1.8.2
 $ git submodule foreach git pull origin master
 ```
 
