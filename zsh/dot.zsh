@@ -23,8 +23,8 @@ alias history='history -i'
 
 ## suffix aliases
 function {
-	local fts=(c cc cpp h hpp md txt)
-	local ft
+	local fts ft
+	fts=(c cc cpp h hpp md txt)
 	for ft in "${fts[@]}"; do
 		alias -s "$ft"='$EDITOR'
 	done
@@ -111,7 +111,6 @@ source "$DOTDIR/zsh/bindkey.zsh"
 
 ## misc
 autoload -Uz colors && colors
-autoload -Uz post-slack
 
 ## unset temporary variables
 typeset +r DOTDIR
