@@ -35,3 +35,6 @@
 	unmerged-x = log --cherry-pick --pretty=my3 --date=short --no-merges --right-only
 	# unmerged-s  = "!f() { git unmerged-s-internal $@ | grep -v '^commit [0-9a-z]*'; }; f"
 	# unmerged-x  = "!f() { git unmerged-x-internal $@ | grep -v '^commit [0-9a-z]*'; }; f"
+	skip = update-index --skip-worktree
+	no-skip = update-index --no-skip-worktree
+	ls-skip = !git ls-files -v | grep "^S"
