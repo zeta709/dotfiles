@@ -21,7 +21,14 @@ my_git_info() {
 			if [[ -n "$MY_GIT_SYMREF" ]]; then
 				MY_GIT_INFO="%F{cyan}($MY_GIT_SYMREF)%f "
 			else
-				MY_GIT_INFO="%F{cyan}($(git branch 2>/dev/null | grep "^\*" | sed -E -e 's/\(HEAD detached (at|from) (.*)\)/%F{magenta}\2%F{cyan}/;s/\* //'))%f "
+				local MY_GIT_DETACHED="$(git branch 2>/dev/null | grep "^\*" | sed -E -e 's/\(HEAD detached (at|from) (.*)\)/\2/;s/\* //')"
+				local MY_GIT_SHA1="$(git rev-parse --short --verify -q HEAD)"
+				local MY_GIT_DETACHED_SHA1="$(git rev-parse --short --verify -q "${MY_GIT_DETACHED}^{commit}")"
+				if [[ -n "$MY_GIT_DETACHED_SHA1" ]] && [[ "$MY_GIT_DETACHED_SHA1" = "$MY_GIT_SHA1" ]]; then
+					MY_GIT_INFO="%F{cyan}(%F{magenta}$MY_GIT_DETACHED%F{cyan})%f "
+				else
+					MY_GIT_INFO="%F{cyan}(%F{magenta}$MY_GIT_SHA1%F{cyan})%f "
+				fi
 			fi
 			MY_GIT_STAMP="$(date +%s)"
 		fi
