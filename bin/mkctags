@@ -1,3 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++ .
+mkctags() {
+	local options
+	options=(-R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++)
+	if [[ -f ".ctagsignore" ]]; then
+		options+=("--exclude=@.ctagsignore")
+	fi
+	ctags "${options[@]}" .
+}
+
+mkctags "$@"
