@@ -17,6 +17,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
+alias viml='vim -R -n -u "NONE"'
 
 ## zsh command aliases
 alias history='history -i'
