@@ -6,12 +6,22 @@ Personal dotfiles.
 Installation
 ------------
 
+### Quick install using curl
+
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zeta709/dotfiles/master/install_quick.sh)"
+```
+
+### Step-by-step install
+
 ```
 $ cd $HOME
 $ git clone https://github.com/zeta709/dotfiles.git .dotfiles
-$ cd .dotfiles/
+$ cd .dotfiles
 $ git submodule update --init --recursive
 $ ./install.sh
+$ vim +PlugInstall +qall
+$ echo 1 | ./colorscheme.sh
 ```
 
 ### Get the latest submodules
