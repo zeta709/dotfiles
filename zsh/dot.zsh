@@ -40,7 +40,7 @@ alias -g ......='../../../../..'
 ## zsh variables
 ## typeset -U array: keep unique elements
 typeset -Ug fpath precmd_functions preexec_functions
-fpath=("$DOTDIR/zsh/functions" "${fpath[@]}")
+fpath=("$HOME/.zfunc" "$DOTDIR/zsh/functions" "${fpath[@]}")
 
 ## directory options
 setopt auto_cd
