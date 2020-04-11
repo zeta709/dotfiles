@@ -69,7 +69,16 @@ zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 
 ## completion init
 autoload -Uz compinit
-compinit -i -d "${HOME}/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+function {
+	local _compdump_files COMPDUMP_FILE
+	COMPDUMP_FILE="${HOME}/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+	_compdump_files=("${COMPDUMP_FILE}"(Nm-24))
+	if (( $#_compdump_files )); then
+		compinit -C -d "${COMPDUMP_FILE}"
+	else
+		compinit -i -d "${COMPDUMP_FILE}"
+	fi
+}
 
 ## expansion and globbing options
 setopt extended_glob
