@@ -11,6 +11,7 @@ export GDBHISTFILE="$HOME/.gdb_history"
 alias grep='grep --color=auto --exclude-dir={.bzr,.git,.hg,.svn,CVS}'
 alias vi="vim"
 alias ls="ls --color=auto"
+alias l="ls -l"
 alias ll='ls -lah'
 alias rm="rm -i"
 alias cp="cp -i"
@@ -55,6 +56,8 @@ zmodload -i zsh/complist
 
 ## completion options
 #setopt always_to_end # FIXME: what's this?
+unsetopt menu_complete
+unsetopt rec_exact
 setopt complete_in_word
 
 ## completion zstyles
@@ -84,9 +87,14 @@ function {
 setopt extended_glob
 
 ## history options
+unsetopt hist_expire_dups_first
+unsetopt hist_ignore_all_dups
+unsetopt hist_ignore_dups
+unsetopt hist_ignore_space
+unsetopt hist_save_no_dups
 setopt extended_history
-#setopt hist_expire_dups_first
-#setopt hist_fcntl_lock # FIXME: need to be tested
+setopt hist_fcntl_lock
+setopt hist_find_no_dups
 setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_verify
@@ -94,7 +102,7 @@ setopt share_history
 
 ## history parameters
 HISTFILE="$HOME/.zsh_history"
-HISTORY_IGNORE="(ls|ll|ls -[laAh1]#|cd|cd -|cd .##(/.#)#)"
+HISTORY_IGNORE="(ls|ll|ls -[laAh1]#)"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -102,6 +110,7 @@ SAVEHIST=10000
 setopt interactive_comments
 
 ## job control options
+unsetopt bg_nice
 setopt long_list_jobs
 
 ## prompting options
