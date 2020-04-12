@@ -50,8 +50,11 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
+" fzf
+Plug '$HOME/.fzf'
+Plug 'junegunn/fzf.vim'
+
 "" misc
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/gv.vim'
 

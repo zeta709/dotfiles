@@ -65,6 +65,10 @@ source_rc "$SELF_DIRQ/tmux/.terminal.tmux.conf" "$HOME/.tmux.conf"
 mkdir -p "$HOME/bin"
 find "$SELF_DIR/bin" -type f -executable -exec ln -vis -t "$HOME/bin" "{}" \;
 
+## fzf
+"$SELF_DIR/fzf/install"
+ln -vis "$SELF_DIR/fzf" "$HOME/.fzf"
+
 # etc.
 #ln -vis "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 #ln -vis "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"

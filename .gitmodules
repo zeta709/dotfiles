@@ -16,3 +16,6 @@
 [submodule "vim-plug"]
 	path = vim/vim-plug
 	url = https://github.com/junegunn/vim-plug.git
+[submodule "fzf"]
+	path = fzf
+	url = https://github.com/junegunn/fzf
