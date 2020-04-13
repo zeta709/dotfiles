@@ -44,7 +44,7 @@ typeset -Ug fpath precmd_functions preexec_functions
 fpath=("$HOME/.zfunc" "$DOTDIR/zsh/functions" "${fpath[@]}")
 
 ## directory options
-setopt auto_cd
+unsetopt auto_cd
 setopt auto_pushd
 #setopt pushd_minus # FIXME: what's this?
 
