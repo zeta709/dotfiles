@@ -19,7 +19,7 @@ if [ ! -f "$TMP/$CSS" ]; then
 		"$TMP/$CSS_IN" > "$TMP/$CSS" || exit 1
 fi
 
-pandoc -f "markdown_github" -t "html5" --self-contained --standalone \
+pandoc -f "markdown_github" -t "html5" --self-contained --standalone --wrap=none\
 	--css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || exit 1
 cd "$TMP" || exit 1
 python3 -m http.server || exit 1
