@@ -89,6 +89,9 @@ au filetype python setlocal tabstop=8
 au filetype python setlocal shiftwidth=4
 au filetype python setlocal softtabstop=4
 
+"" for git
+au filetype gitcommit setlocal spell spelllang=en_us colorcolumn=50,72
+
 "" for Markdown
 au BufRead,BufNewFile *.md setlocal filetype=markdown
 "au filetype markdown setlocal colorcolumn=120
