@@ -20,6 +20,8 @@ alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
 alias viml='vim -R -n -u "NONE"'
 
+alias vminfo='for file in /proc/*/status ; do awk '"'"'/Tgid|VmSwap|Name/{printf $2 " " $3}END{print ""}'"'"' $file; done | grep kB | sort -k 3 -n -r | less'
+
 ## zsh command aliases
 alias history='history -i'
 
