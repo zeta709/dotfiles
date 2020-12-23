@@ -1,0 +1,27 @@
+# vim:filetype=zsh
+
+elapsed() {
+	[[ "$#" -eq "1" ]] || { echo 'no arguments' >& 2; return 1; }
+	[[ "$1" =~ [0-9]* ]] || { echo 'not a number' >&2; return 1; }
+	local START="$1"
+	local FINISH="$(date -u +%s)"
+	[[ "$FINISH" -ge "$START" ]] || { echo 'negative elapsted time' >&2 ; return 1; }
+	local ELAPSED=$((FINISH - START))
+	local ELAPSED_S=$((ELAPSED % 60))
+	local ELAPSED_M=$(((ELAPSED / 60) % 60))
+	local ELAPSED_H=$(((ELAPSED / 3600) % 24))
+	local ELAPSED_D=$(((ELAPSED / 3600) / 24))
+	local MSG="Elapsed time: "
+	if [[ "$ELAPSED_D" -gt "0" ]]; then
+		MSG+="$ELAPSED d $ELAPSED_H h $ELAPSED_M m $ELAPSED_S s ($ELAPSED s)."
+	elif [[ "$ELAPSED_H" -gt "0" ]]; then
+		MSG+="$ELAPSED_H h $ELAPSED_M m $ELAPSED_S s ($ELAPSED s)."
+	elif [[ "$ELAPSED_M" -gt "0" ]]; then
+		MSG+="$ELAPSED_M m $ELAPSED_S s ($ELAPSED s)."
+	else
+		MSG+="$ELAPSED_S s."
+	fi
+	echo "$MSG"
+}
+
+elapsed "$@"
