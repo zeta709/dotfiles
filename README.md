@@ -20,6 +20,7 @@ $ git clone https://github.com/zeta709/dotfiles.git .dotfiles
 $ cd .dotfiles
 $ git submodule update --init --recursive
 $ ./install.sh
+$ ./fzf/install
 $ vim +PlugInstall +qall
 $ echo 1 | ./colorscheme.sh
 ```

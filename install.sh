@@ -37,6 +37,7 @@ if ! grep -q "$STR" "$HOME/.vimrc"; then
 
 		call plug#begin('$HOME/.vim/plugged')
 		source $SELF_DIRQ/vim/dot-plugins.vim
+		Plug '$SELF_DIRQ/fzf'
 		call plug#end()
 
 		source $SELF_DIRQ/vim/.colors.vim
