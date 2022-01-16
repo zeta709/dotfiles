@@ -40,6 +40,7 @@ endif
 "" temp directory setting for windows
 "set directory=.,$TEMP
 
+set cursorline
 
 """"""""""""""""""""""""""""""""""""""""
 "" encoding
