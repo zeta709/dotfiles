@@ -19,7 +19,12 @@ if [ ! -f "$TMP/$CSS" ]; then
 		"$TMP/$CSS_IN" > "$TMP/$CSS" || exit 1
 fi
 
-pandoc -f "markdown_github" -t "html5" --self-contained --standalone --wrap=none\
+# use "markdown_github" instead of "gfm" for older versions of pandoc
+pandoc -f "gfm" -t "html5" --self-contained --standalone --wrap=none\
 	--css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || exit 1
 cd "$TMP" || exit 1
-python3 -m http.server || exit 1
+
+if [[ ! "$MDSERVER_PORT" =~ ^[1-9][0-9]*$ ]]; then
+	MDSERVER_PORT=8000
+fi
+python3 -m http.server $MDSERVER_PORT || exit 1
