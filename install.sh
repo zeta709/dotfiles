@@ -17,6 +17,7 @@ SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 ln -vis /dev/null "$SELF_DIR/sh/.term.sh"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
+echo "note: .zlogin/.zlogout will not be installed automatically"
 
 # dircolors
 ln -vis "$SELF_DIR/.dircolors" "$HOME/.dircolors"
