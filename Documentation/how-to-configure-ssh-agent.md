@@ -84,11 +84,11 @@ You can set the environment variables after re-attaching tmux.
 update-ssh-agent-env() {
     local tmp
     if tmp=$(tmux show-environment SSH_AGENT_PID) > /dev/null 2>&1; then
-        SSH_AGENT_PID=${tmp##*=}
+        SSH_AGENT_PID=${tmp#*=}
         export SSH_AGENT_PID
     fi
     if tmp=$(tmux show-environment SSH_AUTH_SOCK) > /dev/null 2>&1; then
-        SSH_AUTH_SOCK=${tmp##*=}
+        SSH_AUTH_SOCK=${tmp#*=}
         export SSH_AUTH_SOCK
     fi
 }
