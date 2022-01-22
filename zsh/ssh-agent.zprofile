@@ -1,3 +1,4 @@
+# vim: ft=zsh:noexpandtab:sw=4:ts=4
 # the code below should be placed at $HOME/.zprofile
 if [[ -z "$SSH_AGENT_PID" ]]; then
 	# if `exec ...` should fail, it would block the login forever.
