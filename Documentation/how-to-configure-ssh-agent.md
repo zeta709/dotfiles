@@ -23,9 +23,9 @@ fi
 
 Pros and cons:
 - easy configuration
-- a ssh-agent is not shared with other login shells
-    - note that each tmux pane creates a new login shell
-- the ssh-agent may not be killed if the shell is killed abruptly
+- a `ssh-agent` is not shared with other login shells
+    - note that each `tmux` pane creates a new login shell
+- the `ssh-agent` may not be killed if the shell is killed abruptly
 
 ## Solution 2
 
@@ -33,8 +33,8 @@ Save the output of `ssh-agent` and reuse environment variables.
 There are a bunch of examples on the internet.
 
 Pros and cons:
-- a ssh-agent is shared with other login shells
-- not easy to kill the ssh-agent
+- a `ssh-agent` is shared with other login shells
+- not easy to kill the `ssh-agent`
 
 ## Solution 3
 
@@ -65,7 +65,7 @@ if [ -z "$SSH_AGENT_PID" ]; then
     # it can check if the last attempt failed.
     if [ ! -f "$HOME/.exec-ssh-agent" ]; then
         if touch "$HOME/.exec-ssh-agent"; then
-            # you may use your preferred shell instead of zsh
+            # You may use your preferred shell instead of zsh
             exec /usr/bin/ssh-agent -t 15m /usr/bin/zsh
         fi
     fi
@@ -85,17 +85,18 @@ fi
 ```
 
 Pros and cons:
-- the ssh-agent exits automatically if the shell terminates
-- a sub-shell uses its parent's ssh-agent
-    - within a tmux session, only one ssh-agent is used
-- if the outermost shell exits, existing shells lose their ssh-agent
+- the `ssh-agent` exits automatically if the shell terminates
+- a sub-shell uses its parent's `ssh-agent`
+    - within a `tmux` session, only one `ssh-agent` is used
+- if the outermost shell exits, existing shells lose their `ssh-agent`
 
 ## Other configuration
 
 ### Update ssh-agent environment variables
 
-If you are using tmux, shells in a tmux session may lose their ssh-agent.
-In this case, you can reset the environment variables after re-attaching tmux.
+Shells in a `tmux` session may lose their `ssh-agent` when the shell started
+the `tmux` session exits. In this case, you can reset the environment variables
+after re-attaching to the `tmux` session.
 
 ``` sh
 # This should be a shell function to modify environment variables
@@ -118,7 +119,7 @@ exist.
 
 ### For a non-interactive shell
 
-Most probably you do not need a ssh-agent if a shell is non-interactive.
+Most probably you do not need a `ssh-agent` if a shell is non-interactive.
 In that case, you can use the code snippet below.
 
 ``` sh
@@ -128,7 +129,14 @@ case $- in
 esac
 ```
 
-Also note that if a zsh is executed as a non-interactive login shell, it might
+Also note that if a `zsh` is executed as a non-interactive login shell, it might
 source `.zprofile` but not `.zshrc`. This may lead to an issue where the
 temporary file created in `.zprofile` remains. Thus, I recommend you to skip
 `exec ssh-agent` in a non-interactive shell.
+
+For some cases, you may want to execute a program that requires `ssh-agent` in
+a non-interactive shell. My personal opinion is that such a program should
+take care of `ssh-agent` by itself for the following reasons:
+- you cannot use `-t` option of `ssh-agent` if the shell is non-interactive
+- you may not want every `ssh` or `scp` to gain the authentication automatically
+- `.profile` should be very robust
