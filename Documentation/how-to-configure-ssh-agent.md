@@ -90,7 +90,13 @@ Pros and cons:
     - within a tmux session, only one ssh-agent is used
 - if the outermost shell exits, existing shells lose their ssh-agent
 
-You can set the environment variables after re-attaching tmux.
+## Other configuration
+
+### Update ssh-agent environment variables
+
+If you are using tmux, shells in a tmux session may lose their ssh-agent.
+In this case, you can set the environment variables after re-attaching tmux.
+
 ``` sh
 # This should be a shell function to modify environment variables
 update_ssh_agent_env() {
@@ -106,7 +112,11 @@ update_ssh_agent_env() {
 }
 ```
 
-## Other configuration
+Personally, I would not use `eval "$(tmux show-environment -s SSH_AGENT_PID)"`
+as `tmux show-environment` prints an error message if the variable does not
+exist.
+
+### For a non-interactive shell
 
 Most probably you do not need a ssh-agent if a shell is non-interactive.
 In that case, you can use the code snippet below.
