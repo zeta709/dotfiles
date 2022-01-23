@@ -138,5 +138,5 @@ For some cases, you may want to execute a program that requires `ssh-agent` in
 a non-interactive shell. My personal opinion is that such a program should
 take care of `ssh-agent` by itself for the following reasons:
 - you cannot use `-t` option of `ssh-agent` if the shell is non-interactive
-- you may not want every `ssh` or `scp` to gain the authentication automatically
+- you may not want every login shell to gain the authentication automatically
 - `.profile` should be very robust
