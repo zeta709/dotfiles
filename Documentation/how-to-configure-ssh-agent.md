@@ -12,7 +12,7 @@ eval "$(/usr/bin/ssh-agent -s -t 15m)"
 ```
 
 Do not forget to terminate the `ssh-agent` at logout otherwise you would have
-a huge number of `ssh-agent` in the end.
+a huge number of `ssh-agent`s in the end.
 
 In `.bash_logout` or `.zlogout`:
 ``` sh
@@ -25,7 +25,7 @@ Pros and cons:
 - easy configuration
 - a ssh-agent is not shared with other login shells
     - note that each tmux pane creates a new login shell
-- a ssh-agent may not be killed if the shell is killed abruptly
+- the ssh-agent may not be killed if the shell is killed abruptly
 
 ## Solution 2
 
@@ -34,7 +34,7 @@ There are a bunch of examples on the internet.
 
 Pros and cons:
 - a ssh-agent is shared with other login shells
-- not easy to kill a ssh-agent
+- not easy to kill the ssh-agent
 
 ## Solution 3
 
@@ -85,7 +85,7 @@ fi
 ```
 
 Pros and cons:
-- a ssh-agent exits automatically if the shell terminates
+- the ssh-agent exits automatically if the shell terminates
 - a sub-shell uses its parent's ssh-agent
     - within a tmux session, only one ssh-agent is used
 - if the outermost shell exits, existing shells lose their ssh-agent
@@ -95,7 +95,7 @@ Pros and cons:
 ### Update ssh-agent environment variables
 
 If you are using tmux, shells in a tmux session may lose their ssh-agent.
-In this case, you can set the environment variables after re-attaching tmux.
+In this case, you can reset the environment variables after re-attaching tmux.
 
 ``` sh
 # This should be a shell function to modify environment variables
