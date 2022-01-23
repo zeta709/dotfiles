@@ -16,7 +16,7 @@ a huge number of `ssh-agent` in the end.
 
 In `.bash_logout` or `.zlogout`:
 ``` sh
-if [[ -n "$SSH_AGENT_PID" ]]; then
+if [ -n "$SSH_AGENT_PID" ]; then
     /usr/bin/ssh-agent -k
 fi
 ```
@@ -43,8 +43,8 @@ The most straight-forward configuration would be like below.
 
 In `.bash_profile` or `.zprofile`:
 ``` sh
-# use this code with caution
-if [[ -z "$SSH_AGENT_PID" ]]; then
+# Use this code with caution
+if [ -z "$SSH_AGENT_PID" ]; then
     exec /usr/bin/ssh-agent -t 15m /usr/bin/zsh
 fi
 ```
@@ -54,23 +54,31 @@ This would block you from logging in forever. Thus, I added some safety check.
 
 In `.bash_profile` or `.zprofile`:
 ``` sh
-if [[ -z "$SSH_AGENT_PID" ]]; then
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+
+if [ -z "$SSH_AGENT_PID" ]; then
     # If `exec ...` should fail, it would block the login forever.
     # By creating a temp file and removing it later,
     # it can check if the last attempt failed.
-    if [[ ! -f "$HOME/.exec-ssh-agent" ]]; then
+    if [ ! -f "$HOME/.exec-ssh-agent" ]; then
         if touch "$HOME/.exec-ssh-agent"; then
-	    # you may use your preferred shell instead of zsh
+            # you may use your preferred shell instead of zsh
             exec /usr/bin/ssh-agent -t 15m /usr/bin/zsh
         fi
     fi
 fi
 ```
 
+For `exec` replaces the current shell, you cannot delete the temporary file
+in the same script. You have to delete the file in `.bashrc` or its equivalent.
+
 In `.bashrc` or `.zshrc`:
 ``` sh
-if [[ -n "$SSH_AGENT_PID" ]]; then
-    if [[ -f "$HOME/.exec-ssh-agent" && ! -s "$HOME/.exec-ssh-agent" ]]; then
+if [ -n "$SSH_AGENT_PID" ]; then
+    if [ -f "$HOME/.exec-ssh-agent" ] && [ ! -s "$HOME/.exec-ssh-agent" ]; then
         rm -f "$HOME/.exec-ssh-agent"
     fi
 fi
@@ -85,7 +93,7 @@ Pros and cons:
 You can set the environment variables after re-attaching tmux.
 ``` sh
 # This should be a shell function to modify environment variables
-update-ssh-agent-env() {
+update_ssh_agent_env() {
     local tmp
     if tmp=$(tmux show-environment SSH_AGENT_PID) > /dev/null 2>&1; then
         SSH_AGENT_PID=${tmp#*=}
@@ -98,3 +106,19 @@ update-ssh-agent-env() {
 }
 ```
 
+## Other configuration
+
+Most probably you do not need a ssh-agent if a shell is non-interactive.
+In that case, you can use the code snippet below.
+
+``` sh
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+```
+
+Also note that if a zsh is executed as a non-interactive login shell, it might
+source `.zprofile` but not `.zshrc`. This may lead to an issue where the
+temporary file created in `.zprofile` remains. Thus, I recommend you to skip
+`exec ssh-agent` in a non-interactive shell.
