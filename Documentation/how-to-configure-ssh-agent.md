@@ -129,14 +129,19 @@ case $- in
 esac
 ```
 
-Also note that if a `zsh` is executed as a non-interactive login shell, it might
+Also note that if a `zsh` is executed as a non-interactive login shell, it may
 source `.zprofile` but not `.zshrc`. This may lead to an issue where the
-temporary file created in `.zprofile` remains. Thus, I recommend you to skip
-`exec ssh-agent` in a non-interactive shell.
+temporary file created in `.zprofile` remains. This is one reason I recommend
+you to skip `exec ssh-agent` in a non-interactive shell.
 
 For some cases, you may want to execute a program that requires `ssh-agent` in
 a non-interactive shell. My personal opinion is that such a program should
 take care of `ssh-agent` by itself for the following reasons:
-- you cannot use `-t` option of `ssh-agent` if the shell is non-interactive
+- you may want to use `-t` option of `ssh-agent` for security reason
+    - however, it is illogical to use the `-t` option in a non-interactive shell
 - you may not want every login shell to gain the authentication automatically
 - `.profile` should be very robust
+
+## See also
+
+- [ssh-agent(1)](https://man.openbsd.org/ssh-agent) man page from OpenSSH
