@@ -96,6 +96,8 @@ au filetype gitcommit setlocal spell spelllang=en_us colorcolumn=50,72
 "" for Markdown
 au BufRead,BufNewFile *.md setlocal filetype=markdown
 "au filetype markdown setlocal colorcolumn=120
+let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'sh', 'sql']
+let g:markdown_minlines = 100
 
 "" for java
 "let java_space_errors=1
