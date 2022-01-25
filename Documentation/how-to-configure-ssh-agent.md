@@ -102,11 +102,11 @@ after re-attaching to the `tmux` session.
 # This should be a shell function to modify environment variables
 update_ssh_agent_env() {
     local tmp
-    if tmp=$(tmux show-environment SSH_AGENT_PID) > /dev/null 2>&1; then
+    if tmp=$(tmux show-environment SSH_AGENT_PID) 2>/dev/null; then
         SSH_AGENT_PID=${tmp#*=}
         export SSH_AGENT_PID
     fi
-    if tmp=$(tmux show-environment SSH_AUTH_SOCK) > /dev/null 2>&1; then
+    if tmp=$(tmux show-environment SSH_AUTH_SOCK) 2>/dev/null; then
         SSH_AUTH_SOCK=${tmp#*=}
         export SSH_AUTH_SOCK
     fi
@@ -114,8 +114,7 @@ update_ssh_agent_env() {
 ```
 
 Personally, I would not use `eval "$(tmux show-environment -s SSH_AGENT_PID)"`
-as `tmux show-environment` prints an error message if the variable does not
-exist.
+because of the usage of `eval`.
 
 ### For a non-interactive shell
 
