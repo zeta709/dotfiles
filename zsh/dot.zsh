@@ -133,6 +133,8 @@ source "$DOTDIR/zsh/bindkey.zsh"
 ## misc
 autoload -Uz colors && colors
 
+autoload -Uz update_ssh_agent_env
+
 ## unset temporary variables
 typeset +r DOTDIR
 unset DOTDIR

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+update_ssh_agent_env() {
+    local tmp
+    if tmp=$(tmux show-environment SSH_AGENT_PID); then
+        SSH_AGENT_PID=${tmp#*=}
+        export SSH_AGENT_PID
+    fi
+    if tmp=$(tmux show-environment SSH_AUTH_SOCK); then
+        SSH_AUTH_SOCK=${tmp#*=}
+        export SSH_AUTH_SOCK
+    fi
+}
