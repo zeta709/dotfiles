@@ -20,6 +20,7 @@ source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
 echo "note: .zlogin/.zlogout will not be installed automatically"
 
 # dircolors
+(cd "$SELF_DIR/dircolors" && ./mksymlinks.sh)
 ln -vis "$SELF_DIR/.dircolors" "$HOME/.dircolors"
 ln -vis /dev/null "$SELF_DIR/.dircolors"
 
@@ -57,6 +58,7 @@ if [ -z "$DOTGITCONFIG" ]; then
 fi
 
 # tmux
+(cd "$SELF_DIR/tmux/colors" && ./mksymlinks.sh)
 ln -vis /dev/null "$SELF_DIR/tmux/.colors.tmux.conf"
 ln -vis /dev/null "$SELF_DIR/tmux/.terminal.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
