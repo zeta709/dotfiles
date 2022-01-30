@@ -97,6 +97,16 @@ and [solarized-and-modern-putty](https://github.com/jblaine/solarized-and-modern
 
 See [important-note-for-terminal-users](https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users).
 
+SSH configuration
+-----------------
+
+Generating a new SSH key:
+``` sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+See also [how to configure ssh-agent](Documentation/how-to-configure-ssh-agent.md).
+
 Dotfiles sturucture
 -------------------
 
