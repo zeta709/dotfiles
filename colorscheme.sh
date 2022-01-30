@@ -101,11 +101,13 @@ main() {
 	local SCHEME
 	local IS256="false"
 	local COLORSDIR="colors"
+	local SOLARIZED8
 
 	echo "Choose color scheme:"
 	local SCHEMESET=(
 		"solarized-dark-16" "solarized-light-16"
 		"solarized-dark-256" "solarized-light-256"
+		"solarized8-dark (truecolor)"
 		"default")
 	select SCHEME in "${SCHEMESET[@]}"; do
 		[[ -n "$SCHEME" ]] && break
@@ -118,14 +120,23 @@ main() {
 		solarized-dark-256)
 			IS256="true"
 			;;
+		solarized8-*)
+			IS256="true"
+			SOLARIZED8=1
+			SCHEME="solarized-dark-256"
+			;;
 	esac
 
-	readonly SELF_DIR SCHEME IS256
+	readonly SELF_DIR IS256
 	mutt
 	vim
 	tmux
 	mydircolors
 	mysh
+	if [[ -n "$SOLARIZED8" ]]; then
+		SCHEME="solarized8-dark"
+		vim
+	fi
 
 	echo "Info: source shell rc to apply the color scheme in this terminal"
 	echo "Info: you may change the color pallete of your terminal"
