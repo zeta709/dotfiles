@@ -5,9 +5,7 @@ dircolors/solarized-dark-256
 dircolors/solarized-light-16
 dircolors/solarized-light-256
 mutt/.colors.mutt
-sh/.term.sh
 tmux/.colors.tmux.conf
-tmux/.terminal.tmux.conf
 tmux/colors/solarized-dark-16.tmux.conf
 tmux/colors/solarized-dark-256.tmux.conf
 tmux/colors/solarized-light-16.tmux.conf

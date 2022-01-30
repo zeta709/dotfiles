@@ -14,9 +14,7 @@ SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 
 # zsh
-ln -vis /dev/null "$SELF_DIR/sh/.term.sh"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
-source_rc "$SELF_DIRQ/sh/.term.sh" "$HOME/.zshrc"
 echo "note: .zlogin/.zlogout will not be installed automatically"
 
 # dircolors
@@ -60,10 +58,8 @@ fi
 # tmux
 (cd "$SELF_DIR/tmux/colors" && ./mksymlinks.sh)
 ln -vis /dev/null "$SELF_DIR/tmux/.colors.tmux.conf"
-ln -vis /dev/null "$SELF_DIR/tmux/.terminal.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/.colors.tmux.conf" "$HOME/.tmux.conf"
-source_rc "$SELF_DIRQ/tmux/.terminal.tmux.conf" "$HOME/.tmux.conf"
 
 # bin
 mkdir -p "$HOME/bin"

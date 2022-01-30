@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # THIS SCRIPT WILL BE NO MORE MAINTAINED
+echo "THIS SCRIPT WILL BE NO MORE MAINTAINED"
 
 # usage: rmlink_safe $LINK_NAME || return 1
 rmlink_safe() {
@@ -51,16 +52,6 @@ color_scheme() {
 	fi
 }
 
-mysh() {
-	local LINK_NAME="$SELF_DIR/sh/.term.sh"
-	rmlink_safe "$LINK_NAME" || return 1
-	if [[ "$IS256" = "true" ]]; then
-		ln -vs "256.sh" "$LINK_NAME"
-	else
-		ln -vs "16.sh" "$LINK_NAME"
-	fi
-}
-
 mydircolors() {
 	local DIR="$SELF_DIR"
 	local SRC="dircolors/${SCHEME}"
@@ -69,14 +60,6 @@ mydircolors() {
 }
 
 tmux() {
-	local LINK_NAME_T="$SELF_DIR/tmux/.terminal.tmux.conf"
-	rmlink_safe "$LINK_NAME_T" || return 1
-	if [[ "$IS256" = "true" ]]; then
-		ln -vs "256.tmux.conf" "$LINK_NAME_T"
-	else
-		ln -vs /dev/null "$LINK_NAME_T"
-	fi
-
 	local DIR="$SELF_DIR/tmux"
 	local SRC="colors/${SCHEME}.tmux.conf"
 	local LINK_NAME=".colors.tmux.conf"
@@ -101,7 +84,6 @@ main() {
 	local SELF_DIR
 	SELF_DIR="$(unset CDPATH && cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	local SCHEME
-	local IS256="false"
 	local COLORSDIR="colors"
 	local SOLARIZED8
 
@@ -120,21 +102,18 @@ main() {
 			echo "error: $SCHEME is not supported for tmux and dircolors"
 			;& # fall-through
 		solarized-dark-256)
-			IS256="true"
 			;;
 		solarized8-*)
-			IS256="true"
 			SOLARIZED8=1
 			SCHEME="solarized-dark-256"
 			;;
 	esac
 
-	readonly SELF_DIR IS256
+	readonly SELF_DIR
 	mutt
 	vim
 	tmux
 	mydircolors
-	mysh
 	if [[ -n "$SOLARIZED8" ]]; then
 		SCHEME="solarized8-dark"
 		vim
