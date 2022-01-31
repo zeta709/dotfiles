@@ -1,9 +1,6 @@
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git
-[submodule "mintty-colors-solarized"]
-	path = mintty/colors/mintty-colors-solarized
-	url = https://github.com/mavnn/mintty-colors-solarized
 [submodule "vim-plug"]
 	path = vim/vim-plug
 	url = https://github.com/junegunn/vim-plug.git

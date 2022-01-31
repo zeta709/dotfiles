@@ -11,5 +11,4 @@ echo call plug#begin('~/.vim/plugged') >> %FILE%
 echo source ~/.dotfiles/vim/dot-plugins.vim >> %FILE%
 echo call plug#end() >> %FILE%
 echo. >> %FILE%
-echo source ~/.dotfiles/vim/colors/solarized-dark-16.vim >> %FILE%
 echo ^" dotfiles are installed >> %FILE%

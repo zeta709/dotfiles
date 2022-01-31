@@ -4,8 +4,6 @@ SELF_DIR="$( unset CDPATH && cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # TODO: prevent muliple installs
 {
-	echo "# solarized"
-	cat "${SELF_DIR}/colors/mintty-colors-solarized/.minttyrc.dark"
 	echo
 	echo "# dot.mintty"
 	cat "${SELF_DIR}/dot.mintty"
