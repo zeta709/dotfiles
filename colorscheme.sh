@@ -52,13 +52,6 @@ color_scheme() {
 	fi
 }
 
-mutt() {
-	local DIR="$SELF_DIR/mutt"
-	local SRC="colors/${SCHEME}.muttrc"
-	local LINK_NAME=".colors.mutt"
-	color_scheme "mutt" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
-}
-
 main() {
 	local SELF_DIR
 	SELF_DIR="$(unset CDPATH && cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -88,7 +81,6 @@ main() {
 	esac
 
 	readonly SELF_DIR
-	mutt
 	if [[ -n "$SOLARIZED8" ]]; then
 		SCHEME="solarized8-dark"
 	fi
