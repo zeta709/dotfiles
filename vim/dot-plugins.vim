@@ -12,10 +12,6 @@ if !exists('g:plugs')
 	finish
 endif
 
-"" color-scheme
-Plug 'altercation/vim-colors-solarized'
-Plug 'lifepillar/vim-solarized8'
-
 "" project
 Plug 'scrooloose/nerdtree'
 map <C-n> :NERDTreeToggle<CR>

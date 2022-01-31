@@ -52,13 +52,6 @@ color_scheme() {
 	fi
 }
 
-vim() {
-	local DIR="$SELF_DIR/vim"
-	local SRC="colors/${SCHEME}.vim"
-	local LINK_NAME=".colors.vim"
-	color_scheme "vim" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
-}
-
 mutt() {
 	local DIR="$SELF_DIR/mutt"
 	local SRC="colors/${SCHEME}.muttrc"
@@ -96,10 +89,8 @@ main() {
 
 	readonly SELF_DIR
 	mutt
-	vim
 	if [[ -n "$SOLARIZED8" ]]; then
 		SCHEME="solarized8-dark"
-		vim
 	fi
 
 	echo "Info: source shell rc to apply the color scheme in this terminal"

@@ -25,7 +25,6 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 fi
 STR="\" dotfiles are installed"
 if ! grep -q "$STR" "$HOME/.vimrc"; then
-	ln -vis /dev/null "$SELF_DIR/vim/.colors.vim"
 	cat <<- EOF >> "$HOME/.vimrc"
 		source $SELF_DIRQ/vim/dot.vim
 		source $SELF_DIRQ/vim/gui.vim
@@ -34,8 +33,6 @@ if ! grep -q "$STR" "$HOME/.vimrc"; then
 		source $SELF_DIRQ/vim/dot-plugins.vim
 		Plug '$SELF_DIRQ/fzf'
 		call plug#end()
-
-		source $SELF_DIRQ/vim/.colors.vim
 		$STR
 
 	EOF
