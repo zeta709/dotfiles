@@ -17,11 +17,6 @@ SELF_DIRQ="$( printf "%q" "$SELF_DIR" )"
 source_rc "$SELF_DIRQ/zsh/dot.zsh" "$HOME/.zshrc"
 echo "note: .zlogin/.zlogout will not be installed automatically"
 
-# dircolors
-(cd "$SELF_DIR/dircolors" && ./mksymlinks.sh)
-ln -vis "$SELF_DIR/.dircolors" "$HOME/.dircolors"
-ln -vis /dev/null "$SELF_DIR/.dircolors"
-
 # vim
 [ -f "$HOME/.vimrc" ] || touch "$HOME/.vimrc"
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then

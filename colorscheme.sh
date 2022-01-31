@@ -52,13 +52,6 @@ color_scheme() {
 	fi
 }
 
-mydircolors() {
-	local DIR="$SELF_DIR"
-	local SRC="dircolors/${SCHEME}"
-	local LINK_NAME=".dircolors"
-	color_scheme "dircolors" "$SCHEME" "$DIR" "$SRC" "$LINK_NAME"
-}
-
 tmux() {
 	local DIR="$SELF_DIR/tmux"
 	local SRC="colors/${SCHEME}.tmux.conf"
@@ -99,7 +92,7 @@ main() {
 
 	case "$SCHEME" in
 		solarized-light-256)
-			echo "error: $SCHEME is not supported for tmux and dircolors"
+			echo "error: $SCHEME is not supported for tmux"
 			;& # fall-through
 		solarized-dark-256)
 			;;
@@ -113,7 +106,6 @@ main() {
 	mutt
 	vim
 	tmux
-	mydircolors
 	if [[ -n "$SOLARIZED8" ]]; then
 		SCHEME="solarized8-dark"
 		vim

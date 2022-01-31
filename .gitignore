@@ -1,9 +1,4 @@
 # ignore generated symbolic links
-.dircolors
-dircolors/solarized-dark-16
-dircolors/solarized-dark-256
-dircolors/solarized-light-16
-dircolors/solarized-light-256
 mutt/.colors.mutt
 tmux/.colors.tmux.conf
 tmux/colors/solarized-dark-16.tmux.conf
