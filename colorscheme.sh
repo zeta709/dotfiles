@@ -1,6 +1,8 @@
 #!/bin/bash
 
+########################################
 # THIS SCRIPT WILL BE NO MORE MAINTAINED
+########################################
 
 # usage: rmlink_safe $LINK_NAME || return 1
 rmlink_safe() {
