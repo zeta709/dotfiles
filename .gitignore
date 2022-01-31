@@ -1,8 +1,3 @@
 # ignore generated symbolic links
 mutt/.colors.mutt
-tmux/.colors.tmux.conf
-tmux/colors/solarized-dark-16.tmux.conf
-tmux/colors/solarized-dark-256.tmux.conf
-tmux/colors/solarized-light-16.tmux.conf
-tmux/colors/solarized-light-256.tmux.conf
 vim/.colors.vim

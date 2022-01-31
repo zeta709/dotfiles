@@ -1,9 +1,6 @@
 [submodule "mutt-colors-solarized"]
 	path = mutt/colors/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
-[submodule "tmux-colors-solarized"]
-	path = tmux/colors/tmux-colors-solarized
-	url = https://github.com/seebi/tmux-colors-solarized.git
 [submodule "z"]
 	path = z
 	url = https://github.com/rupa/z.git

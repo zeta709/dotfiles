@@ -51,10 +51,7 @@ if [ -z "$DOTGITCONFIG" ]; then
 fi
 
 # tmux
-(cd "$SELF_DIR/tmux/colors" && ./mksymlinks.sh)
-ln -vis /dev/null "$SELF_DIR/tmux/.colors.tmux.conf"
 source_rc "$SELF_DIRQ/tmux/dot.tmux.conf" "$HOME/.tmux.conf"
-source_rc "$SELF_DIRQ/tmux/.colors.tmux.conf" "$HOME/.tmux.conf"
 
 # bin
 mkdir -p "$HOME/bin"
