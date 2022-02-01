@@ -1,20 +1,13 @@
-Applying Solarized color scheme
--------------------------------
+Applying color schemes
+----------------------
 
 > :warning: **Warning**
 >
-> The description below is deprecated.
 > The script has been removed and reimplemented by [zeta709/dotfiles-colorschemes](https://github.com/zeta709/dotfiles-colorschemes).
+> Yet some links might be helpful.
 
 ~~Solarized color schemes can be applied easily by `colorscheme.sh`.~~
 
-``` sh
-$HOME/.dotfiles/colorscheme.sh
-```
-
-> **Note**
->
-> 256-color settings are not fully tested yet.
 
 ### Windows Terminal
 

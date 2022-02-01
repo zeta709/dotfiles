@@ -11,8 +11,6 @@
 	tool = vimdiff
 [color]
 	ui = auto
-[oh-my-zsh]
-	hide-status = 1
 [pretty]
 	## %m: mark (<, >, -)
 	my = format:%C(auto)%h|%C(green)%an%C(reset)%C(auto)|%ad| %s%d

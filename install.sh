@@ -59,6 +59,4 @@ find "$SELF_DIR/bin" -type f -executable -exec ln -vis -t "$HOME/bin" "{}" \;
 ln -vis "$SELF_DIR/fzf" "$HOME/.fzf"
 
 # etc.
-#ln -vis "$SELF_DIR/colorgcc/.colorgccrc" "$HOME/.colorgccrc"
 #ln -vis "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"
-

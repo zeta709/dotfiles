@@ -15,7 +15,6 @@ git submodule update --init --recursive
 
 ./install.sh
 vim +PlugInstall +qall
-echo 1 | ./colorscheme.sh # optional
 ```
 
 Update the repository including submodules:
@@ -29,7 +28,7 @@ type `:PlugInstall` in vim.
 Installation on Windows
 -----------------------
 
-### Font configuration
+### Font configuration (optional)
 
 Open regedit and go to the key
 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink`.
@@ -39,41 +38,16 @@ Add or edit the data of multi-string value for your font as follows:
 SEGUISYM.TTF,Segoe UI Symbol
 ```
 
-See [registry example for font configuration](https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6).
+Refer the example registy: [font.reg](https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6).
+Also refer [font technology](https://docs.microsoft.com/ko-kr/globalization/input/font-technology#font-linking)
+from Microsoft for more details.
 
-Refer the document for [font technology](https://docs.microsoft.com/ko-kr/globalization/input/font-technology#font-linking) from Microsoft for more details.
+Applying color schemes
+----------------------
 
-### Windows subsystem for Linux
+It has been moved to another repository.
+See [color-schemes.md](Documentation/old/color-schemes.md) for the old document.
 
-It works!
-
-### MinGW
-
-> **Note**
->
-> This section is outdated.
-
-MinGW 환경에서는 거의 비슷하게 동작하며, 필요에 따라 mintty 설정만 추가하면 된다.
-
-### Native Windows
-
-> **Note**
->
-> This section is outdated.
-
-순수 Windows 환경에서는 git, vim 설정만 사용할 수 있다. 윈도우용 batch 파일도
-작성했지만 몇가지 문제가 있다.
-특히 `intall.bat`은 줄바꿈 문자를 무조건 윈도우 형식으로 넣기 때문에
-`_vimrc`의 줄바꿈 문자를 미리 윈도우 형식으로 변경해 두어야 하며,
-`_vimrc`의 줄바꿈 문자가 유닉스 형식인 상태에서 `install.bat`을 실행하면
-`_vimrc`를 망가뜨리게 된다.
-그리고 `install.bat`을 중복으로 실행해도 `_vimrc`를 망가뜨리게 된다.
-
-Applying Solarized color scheme
--------------------------------
-
-The configuration related to color scheme has been moved to another repository.
-See [apply-solarized.md](apply-solarized.md) for the old document.
 
 SSH configuration
 -----------------
@@ -84,11 +58,6 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
 See also [how to configure ssh-agent](Documentation/how-to-configure-ssh-agent.md).
-
-Dotfiles sturucture
--------------------
-
-See [dotfiles-structure.md](Documentation/dotfiles-structure.md) (written in Korean).
 
 Miscellaneous
 -------------
