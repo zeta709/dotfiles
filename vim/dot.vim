@@ -3,6 +3,8 @@
 " how to see vim help (single quotes may required for some cases)
 " <ESC>:help '<option>'
 
+" see also https://github.com/tpope/vim-sensible
+
 set number
 set display+=lastline
 set display+=uhex
@@ -10,18 +12,16 @@ set incsearch
 set visualbell
 set hlsearch
 
-if &history < 500
-  set history=500
+if &history < 1000
+  set history=1000
 endif
-"set complete-=i " do not scan included files for autocomplete
+set complete-=i " do not scan included files for autocomplete
 
 set wildmenu " command-line completion
 
-set colorcolumn=80
-
 set backspace=indent,eol,start
 
-set cm=blowfish
+"set cryptmethod=blowfish2 " use the default if possible
 
 "" statusline
 set laststatus=2
@@ -44,6 +44,12 @@ endif
 "set directory=.,$TEMP
 
 set cursorline
+if &diff
+  " cursorline for text may make text unreadable in diff mode
+  set cursorlineopt=number
+else
+  set colorcolumn=80
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 "" encoding
@@ -56,17 +62,43 @@ set nobomb
 
 
 """"""""""""""""""""""""""""""""""""""""
+
+" See https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U
+if empty(mapcheck('<C-U>', 'i'))
+  inoremap <C-U> <C-G>u<C-U>
+endif
+if empty(mapcheck('<C-W>', 'i'))
+  inoremap <C-W> <C-G>u<C-W>
+endif
+
+" scroll
+set sidescroll=1
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+
+""""""""""""""""""""""""""""""""""""""""
 "" syntax, indent
 """"""""""""""""""""""""""""""""""""""""
 
 "" default indent
 set autoindent
+set smarttab
 
 set modeline
 syntax on
 filetype plugin indent on
 
+" formatoptions (:help fo-table)
 "set formatoptions+=ro
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " delete a comment leader when joining lines
+else
+  " https://vim.fandom.com/wiki/Remap_join_to_merge_comment_lines
+endif
 
 "" for c,cpp
 "nmap <C-J> vip=
@@ -87,11 +119,7 @@ au FileType tex map <F9> <ESC>:!xelatex %<CR>
 
 "" for python
 au filetype python setlocal autoindent
-au filetype python setlocal smarttab
-au filetype python setlocal expandtab
-au filetype python setlocal tabstop=8
-au filetype python setlocal shiftwidth=4
-au filetype python setlocal softtabstop=4
+au filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
 
 "" for git
 au filetype gitcommit setlocal spell spelllang=en_us colorcolumn=50,72
