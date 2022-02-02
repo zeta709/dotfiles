@@ -25,7 +25,7 @@
   * 단점: `~/.vimrc.local`이라는 파일 이름을 기억해야 하며,
     `$HOME` 디렉토리에 파일의 수가 많아진다.
 
-여기서 선택한 방법을 사용할 경우 반대로 변경 사항을 repositry에 반영하고
+여기서 선택한 방법을 사용할 경우 반대로 변경 사항을 repository에 반영하고
 싶으면 `~/.vimrc`를 변경하지 않고, repository 내의 파일을 변경해야
 한다는 것을 신경써야 한다. 이런 점에서는 방안 3과 큰 차이가 없으나,
 `$HOME` 디렉토리에 파일 수를 줄일 수 있다는 점에서 현재 방법을 채택하였다.
@@ -67,28 +67,32 @@ call plug#end()
 source ~/.dotfiles/vim/dot.vim
 ```
 
+## 여러 dotfiles repositories 사용
+
+디렉토리 이름이 반드시 `.dotfiles`일 필요는 없기 떄문에 여러 dotfiles
+repository를 사용하는 것도 문제 없다.
+
 ## color scheme 파일 구조
 
-기존에는 colorscheme을 변경할 때 grep, sed 등을 이용해서 설정 파일을
+> :warning: **주의**
+>
+> 아래 설명은 오래되었다.
+
+기존에는 color scheme을 변경할 때 grep, sed 등을 이용해서 설정 파일을
 수정하는 방법을 사용했다. 그런데 이렇게 하니 스크립트가 너무 복잡해지는
 문제가 있었다.
 
 그래서 각 설정 파일에서는 무조건 `.colors` 파일을 읽어오게 설정하고,
-이 파일을 colorscheme 파일과 심볼릭 링크로 연결하는 방법으로 변경했다.
-만약 colorscheme을 설정하지 않을 경우에는 `/dev/null`로 연결하면 된다.
+이 파일을 color scheme 파일과 심볼릭 링크로 연결하는 방법으로 변경했다.
+만약 color scheme을 설정하지 않을 경우에는 `/dev/null`로 연결하면 된다.
 예를 들면, `~/.vimrc`에 `source .dotfiles/vim/.colors.vim`를 추가하고,
 `.colors.vim`를 실제 설정 파일에 심볼릭 링크로 연결하는 것이다.
 `/dev/null`을 source하는 것은 해가 없기 때문에 파일의 존재 유무를
 확인할 필요가 없고, `.tmux.conf`의 경우처럼 파일의 존재 유무를
 확인하고 선택적으로 source하기 어려운 경우에도 이 방법을 적용할 수 있다.
-또한, colorscheme 파일 이름에 일관된 규칙을 적용하였다. 이렇게 하여
-200줄이 넘는 `colorscheme.sh`를 120줄로 줄이면서도 colorscheme을 초기화하는
+또한, color scheme 파일 이름에 일관된 규칙을 적용하였다. 이렇게 하여
+200줄이 넘는 `color scheme.sh`를 120줄로 줄이면서도 color scheme을 초기화하는
 기능을 추가했다.
 ([93b4dcb](https://github.com/zeta709/dotfiles/commit/93b4dcbfaf4bb8fa289e8c5ca6d51c6f96099c7b),
 [325b8b6](https://github.com/zeta709/dotfiles/commit/325b8b61df7c89fcf62feb6b25a2167bb9c92885),
 [a0b9010](https://github.com/zeta709/dotfiles/commit/a0b9010d2dc754d0683ff7deed942c41a02de620))
-
-## 여러 dotfiles repositories 사용
-
-디렉토리 이름이 반드시 `.dotfiles`일 필요는 없기 떄문에 여러 dotfiles
-repository를 사용하는 것도 문제 없다.

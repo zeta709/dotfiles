@@ -38,7 +38,7 @@ Add or edit the data of multi-string value for your font as follows:
 SEGUISYM.TTF,Segoe UI Symbol
 ```
 
-Refer the example registy: [font.reg](https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6).
+Refer the example registry: [font.reg](https://gist.github.com/zeta709/e2e10d027415c0c1305ca18ad15f25a6).
 Also refer [font technology](https://docs.microsoft.com/ko-kr/globalization/input/font-technology#font-linking)
 from Microsoft for more details.
 
