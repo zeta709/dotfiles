@@ -1,14 +1,17 @@
-"" documentation: <ESC>:help options
+" vim: set ft=vim et sw=2:
 
-set number " nu
-set display+=lastline " dy
-set display+=uhex " dy
-set incsearch " is
-set visualbell " vb
-set hlsearch " hls
+" how to see vim help (single quotes may required for some cases)
+" <ESC>:help '<option>'
+
+set number
+set display+=lastline
+set display+=uhex
+set incsearch
+set visualbell
+set hlsearch
 
 if &history < 500
-	set history=500
+  set history=500
 endif
 "set complete-=i " do not scan included files for autocomplete
 
@@ -24,17 +27,17 @@ set cm=blowfish
 set laststatus=2
 "" http://www.vim.org/tips/tip.php?tip_id=735
 if has("statusline")
-set statusline=
-set statusline+=%n:\         " buffer number and colon
-set statusline+=%<%f\        " filename
-set statusline+=[%M%R%H%W]   " flags: modified, readonly, help buffer, preview
-set statusline+=[%{&fenc}    " file encoding
-set statusline+=%{(exists(\"+bomb\")&&(&bomb))?\"\bomb\":\"\"} " bomb
-set statusline+=,%{&ff}]     " file format
-set statusline+=%y           " file type
-set statusline+=[%3b,0x%02B] " character under cursor
-set statusline+=%=%l,%c%V/%L " current line, column and total line
-set statusline+=\ %p%%       " postion(%)
+  set statusline=
+  set statusline+=%n:\         " buffer number and colon
+  set statusline+=%<%f\        " filename
+  set statusline+=[%M%R%H%W]   " flags: modified, readonly, help buffer, preview
+  set statusline+=[%{&fenc}    " file encoding
+  set statusline+=%{(exists(\"+bomb\")&&(&bomb))?\"\bomb\":\"\"} " bomb
+  set statusline+=,%{&ff}]     " file format
+  set statusline+=%y           " file type
+  set statusline+=[%3b,0x%02B] " character under cursor
+  set statusline+=%=%l,%c%V/%L " current line, column and total line
+  set statusline+=\ %p%%       " position(%)
 endif
 
 "" temp directory setting for windows
@@ -119,9 +122,9 @@ set nocsverb
 let cscope_file = findfile("cscope.out", ".;")
 "echo cscope_file
 if !empty(cscope_file) && filereadable(cscope_file)
-	let cscope_pre = strpart(cscope_file, 0, match(cscope_file, "/cscope.out$"))
-	"echo cscope_pre
-	exec "cs add" cscope_file cscope_pre
+  let cscope_pre = strpart(cscope_file, 0, match(cscope_file, "/cscope.out$"))
+  "echo cscope_pre
+  exec "cs add" cscope_file cscope_pre
 endif
 set csverb
 

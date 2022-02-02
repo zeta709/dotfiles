@@ -1,15 +1,16 @@
 "" This is file `dot-plugins.vim`.
+" vim: set ft=vim et sw=2:
 
 if exists('g:loaded_dot_plugins')
-	finish
+  finish
 endif
 let g:loaded_dot_plugins = 1
 
 if !exists('g:plugs')
-	echohl ErrorMsg
-	echom 'plug#begin was not called'
-	echohl None
-	finish
+  echohl ErrorMsg
+  echom 'plug#begin was not called'
+  echohl None
+  finish
 endif
 
 "" project
