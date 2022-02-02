@@ -100,6 +100,8 @@ else
   " https://vim.fandom.com/wiki/Remap_join_to_merge_comment_lines
 endif
 
+set spelllang=en_us,cjk
+
 "" for c,cpp
 "nmap <C-J> vip=
 "map <F5> gg=G``
@@ -110,7 +112,7 @@ au filetype c,cpp setlocal cinoptions=:0,l1,g0,t0,(0,u0,w1
 let c_space_errors=1
 
 "" for tex
-au FileType tex setlocal spell spelllang=en_us
+au FileType tex setlocal spell
 au FileType tex map <F7> <ESC>:setlocal spell spelllang=en_us<CR>
 au FileType tex map <F8> <ESC>:!pdflatex %<CR>
 au FileType tex map <F9> <ESC>:!xelatex %<CR>
@@ -120,10 +122,10 @@ au filetype python setlocal autoindent
 au filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
 
 "" for git
-au filetype gitcommit setlocal spell spelllang=en_us colorcolumn=50,72
+au filetype gitcommit setlocal spell colorcolumn=50,72
 
 "" for Markdown
-au filetype markdown setlocal filetype=markdown
+au filetype markdown setlocal spell
 au filetype markdown setlocal colorcolumn+=100
 let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'sh', 'sql']
 let g:markdown_minlines = 100
