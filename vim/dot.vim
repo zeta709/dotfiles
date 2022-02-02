@@ -104,9 +104,7 @@ endif
 "nmap <C-J> vip=
 "map <F5> gg=G``
 au filetype c,cpp setlocal cindent
-au filetype c,cpp setlocal noexpandtab
-au filetype c,cpp setlocal tabstop=8
-au filetype c,cpp setlocal shiftwidth=8
+au filetype c,cpp setlocal noexpandtab tabstop=8 shiftwidth=8
 "au filetype c,cpp setlocal cinoptions=>2s,:0,=2s,l1,g0,h2s,p2s,t0,+s,(0,u0,w1
 au filetype c,cpp setlocal cinoptions=:0,l1,g0,t0,(0,u0,w1
 let c_space_errors=1
@@ -125,8 +123,8 @@ au filetype python setlocal expandtab tabstop=8 shiftwidth=4 softtabstop=4
 au filetype gitcommit setlocal spell spelllang=en_us colorcolumn=50,72
 
 "" for Markdown
-au BufRead,BufNewFile *.md setlocal filetype=markdown
-"au filetype markdown setlocal colorcolumn=120
+au filetype markdown setlocal filetype=markdown
+au filetype markdown setlocal colorcolumn+=100
 let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'sh', 'sql']
 let g:markdown_minlines = 100
 

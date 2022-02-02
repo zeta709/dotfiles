@@ -10,9 +10,9 @@ if !exists('g:plugs')
   echoerr 'plug#begin was not called'
   echomsg 'Include this file in your .vimrc as follows:'
   echohl MoreMsg
-  echomsg "call plug#begin('/path-to-plugged/.vim/plugged')"
-  echomsg "source /path-to-this/dot-plugins.vim"
-  echomsg "call plug#end()"
+  echomsg "  call plug#begin('/path-to-plugged/.vim/plugged')"
+  echomsg "  source /path-to-this/dot-plugins.vim"
+  echomsg "  call plug#end()"
   echohl None
   finish
 endif
