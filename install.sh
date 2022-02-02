@@ -5,7 +5,7 @@ source_rc() {
 	local BASERC="$1"
 	local RC="$2"
 	[ -f "$RC" ] || touch "$RC"
-	if ! grep -q "source $BASERC" "$RC"; then
+	if ! grep -Fq "source $BASERC" "$RC"; then
 		echo "source $BASERC" >> "$RC"
 	fi
 }
@@ -32,6 +32,7 @@ if ! grep -q "$STR" "$HOME/.vimrc"; then
 		call plug#begin('$HOME/.vim/plugged')
 		source $SELF_DIRQ/vim/dot-plugins.vim
 		Plug '$SELF_DIRQ/fzf'
+		Plug 'junegunn/fzf.vim'
 		call plug#end()
 		$STR
 
