@@ -57,7 +57,7 @@ find "$SELF_DIR/bin" -type f -executable -exec ln -vis -t "$HOME/bin" "{}" \;
 
 ## fzf
 "$SELF_DIR/fzf/install"
-ln -vis "$SELF_DIR/fzf" "$HOME/.fzf"
+[[ ! -e "$HOME/.fzf" ]] && ln -vis "$SELF_DIR/fzf" "$HOME/.fzf"
 
 # etc.
 #ln -vis "$SELF_DIR/mutt/.muttrc" "$HOME/.muttrc"

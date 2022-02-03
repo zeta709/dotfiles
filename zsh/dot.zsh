@@ -5,7 +5,7 @@ readonly DOTDIR="${${${(%):-%x}:A:h}%/*}" # see self-path repo
 export PATH="$HOME/bin:$PATH"
 export LANG="en_US.UTF-8"
 export GDBHISTFILE="$HOME/.gdb_history"
-[[ -r "$HOME/.dircolors" ]] && eval "$(dircolors "$HOME/.dircolors")"
+[[ -r "$HOME/.dircolors" ]] && eval "$(dircolors -b "$HOME/.dircolors")" || eval "$(dircolors -b)"
 
 ## common aliases (not zsh-specific)
 alias grep='grep --color=auto --exclude-dir={.bzr,.git,.hg,.svn,CVS}'
