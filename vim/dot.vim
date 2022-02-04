@@ -42,17 +42,28 @@ endif
 
 "" temp directory setting for windows
 "set directory=.,$TEMP
+"
 
-if &diff
-  " cursorline for text may make text unreadable in diff mode
-  if v:version > 801 || v:version == 801 && has("patch2019")
+" cursorline for text may make text unreadable in diff mode
+function s:cursorline(diff)
+  if a:diff
+    if v:version > 801 || v:version == 801 && has("patch2019")
+      set cursorline
+      set cursorlineopt=number
+    else
+      set nocursorline
+    endif
+  else
     set cursorline
-    set cursorlineopt=number
+    set cursorlineopt=both
   endif
-else
-  set cursorline
-  set colorcolumn=80
-endif
+endfunction
+
+call s:cursorline(&diff)
+
+au OptionSet diff call s:cursorline(v:option_new)
+
+set colorcolumn=80
 
 """"""""""""""""""""""""""""""""""""""""
 "" encoding
