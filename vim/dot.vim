@@ -55,7 +55,9 @@ function s:cursorline(diff)
     endif
   else
     set cursorline
-    set cursorlineopt=both
+    if v:version > 801 || v:version == 801 && has("patch2019")
+      set cursorlineopt=both
+    endif
   endif
 endfunction
 
