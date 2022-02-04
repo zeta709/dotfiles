@@ -43,10 +43,12 @@ endif
 "" temp directory setting for windows
 "set directory=.,$TEMP
 
-if &diff && (v:version > 801 || v:version == 801 && has("patch2019"))
+if &diff
   " cursorline for text may make text unreadable in diff mode
-  set cursorline
-  set cursorlineopt=number
+  if v:version > 801 || v:version == 801 && has("patch2019")
+    set cursorline
+    set cursorlineopt=number
+  endif
 else
   set cursorline
   set colorcolumn=80
