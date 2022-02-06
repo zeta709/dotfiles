@@ -5,6 +5,9 @@
 
 " see also https://github.com/tpope/vim-sensible
 
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
 set number
 set display+=lastline
 set display+=uhex
