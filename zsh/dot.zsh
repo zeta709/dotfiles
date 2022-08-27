@@ -19,6 +19,7 @@ alias mv="mv -i"
 alias cal="cal -mw"
 alias server="python3 -m http.server" # simple server
 alias viml='vim -R -n -u "NONE"'
+alias date-iso='date --iso-8601=seconds'
 
 alias vminfo='for file in /proc/*/status ; do awk '"'"'/Tgid|VmSwap|Name/{printf $2 " " $3}END{print ""}'"'"' $file; done | grep kB | sort -k 3 -n -r | less'
 
