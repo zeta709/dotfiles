@@ -79,3 +79,9 @@ git submodule update --recursive --remote # for >=git-1.8.2, or
 git submodule foreach git pull origin master
 ```
 I'd rather update git to the latest version though.
+
+Setup local timezone:
+``` sh
+export TZ=...
+```
+Refer `/usr/share/zoneinfo` for the possible values.
