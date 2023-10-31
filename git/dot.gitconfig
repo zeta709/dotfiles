@@ -1,8 +1,12 @@
 ## vim:filetype=gitconfig
 [core]
 	editor = vim
+[init]
+	defaultBranch = main
 [push]
 	default = simple
+[pull]
+	ff = only
 [diff]
 	tool = vimdiff
 #[difftool]
@@ -20,6 +24,7 @@
 	my2-nc = format:%m %h|%an|%ad| %s%d
 [log]
 	date = iso
+	decorate = auto
 [alias]
 	ci = commit
 	co = checkout
