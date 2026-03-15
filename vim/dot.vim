@@ -185,3 +185,9 @@ set csverb
 
 "" ctags
 set tags=./tags;
+
+"" mouse (in terminal)
+set mouse=a
+if &term =~ '^screen' || &term =~ '^tmux'
+    set ttymouse=xterm2
+endif
