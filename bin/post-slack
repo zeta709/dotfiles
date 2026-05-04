@@ -20,7 +20,7 @@ post-slack() {
 	[[ "$#" -lt "1" ]] && return 1
 	[[ -z "$SLACK_WEBHOOK_URL" ]] && return 1
 
-	local pos username channel icon_emoji text debug options
+	local pos username channel channel_id icon_emoji text debug options
 	debug="0"
 	pos=()
 	while [[ "$#" -gt "0" ]]; do
@@ -32,6 +32,11 @@ post-slack() {
 				;;
 			-c)
 				channel="$2"
+				shift
+				shift
+				;;
+			--cid)
+				channel_id="$2"
 				shift
 				shift
 				;;
@@ -62,6 +67,7 @@ post-slack() {
 	payload+="\"text\": \"${text//\"/\\\"}\""
 	payload_add "username"
 	payload_add "channel"
+	payload_add "channel_id"
 	payload_add "icon_emoji"
 	payload+="}"
 

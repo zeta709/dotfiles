@@ -9,19 +9,36 @@ fi
 TMP="$HOME/tmp"
 CSS_IN="markdown.css"
 CSS="markdown_pandoc.css"
+LAYOUT_CSS="markdown_layout.css"
 mkdir -p "$TMP" || exit 1
 if [ ! -f "$TMP/$CSS" ]; then
-	if [ ! -f "$CSS_IN" ]; then
-		curl "https://guides.github.com/components/primer/markdown.css" \
+	if [ ! -f "$TMP/$CSS_IN" ]; then
+		curl "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css" \
 			-o "$TMP/$CSS_IN" || exit 1
 	fi
-	sed 's/.markdown-//g; s/overflow *: *hidden *;/overflow: auto;/g' \
+	sed 's/overflow *: *hidden *;/overflow: auto;/g' \
 		"$TMP/$CSS_IN" > "$TMP/$CSS" || exit 1
 fi
+cat > "$TMP/$LAYOUT_CSS" <<'EOF'
+body {
+	display: flex;
+	justify-content: center;
+	padding: 2em;
+	background-color: #fff;
+}
+.markdown-body {
+	max-width: 800px;
+	width: 100%;
+}
+EOF
 
 # use "markdown_github" instead of "gfm" for older versions of pandoc
-pandoc -f "gfm" -t "html5" --self-contained --standalone --wrap=none\
-	--css "$TMP/$CSS" -o "$TMP/index.html" -- "$1" || exit 1
+pandoc -f "gfm" -t "html5" --self-contained --standalone --wrap=none \
+	--css "$TMP/$CSS" --css "$TMP/$LAYOUT_CSS" \
+	-o "$TMP/index.html" -- "$1" || exit 1
+# Wrap content in .markdown-body so GitHub CSS scopes correctly
+sed -i 's|<body>|<body><div class="markdown-body">|; s|</body>|</div></body>|' \
+	"$TMP/index.html" || exit 1
 cd "$TMP" || exit 1
 
 if [[ ! "$MDSERVER_PORT" =~ ^[1-9][0-9]*$ ]]; then
