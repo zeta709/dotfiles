@@ -86,6 +86,8 @@ function {
 	fi
 }
 
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;' # default: $' \t\n;&|'
+
 ## expansion and globbing options
 setopt extended_glob
 
